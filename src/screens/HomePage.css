@@ -1,0 +1,67 @@
+.home-page-container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -2;
+    min-width: 100vw;
+    min-height: 98vh;
+    background-color: #557C55;
+    background-image: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1373&q=80");
+    background-repeat: no-repeat;
+    background-size: 50% 100%;
+    background-position: right;
+}
+.welcome-box{
+    color: white;
+    width: 40%;
+    margin: 15% 5%;
+}
+.welcome-box h2{
+    font-family: 'Lato';
+    font-weight: bold;
+    font-size: 2.6rem;
+}
+.welcome-box p{
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+}
+.promo-container{
+    background-color: #F2F2F4;
+    position: absolute;
+    top: 97vh;
+    width: 100vw;
+    height: 80vh;
+    /*margin: auto;*/
+    padding-top: 4%;
+    text-align: center;
+}
+
+
+.promo-container h2{
+    /*font-family: 'Lato';*/
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.promo-container p{
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+}
+.offer-box{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 0 5%;
+}
+.offer-box div{
+    padding: 5%;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+}
+.bulb{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #557C55;
+}

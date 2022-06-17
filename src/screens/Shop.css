@@ -1,0 +1,11 @@
+.sidebar {
+    padding-left: 20px;
+    padding-top: 15%;
+}
+.sidebar h2{
+    font-size: 1.5rem;
+    letter-spacing: 1.5px;
+}
+.category-box{
+    margin-bottom: 15px;
+}
