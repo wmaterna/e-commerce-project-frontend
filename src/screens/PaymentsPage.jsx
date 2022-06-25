@@ -1,55 +1,65 @@
 import React, {useState, useEffect} from 'react';
-import {useCart, useDispatchCart} from "../components/contextComponents/Cart";
-import {Grid, TextField, Button} from "@mui/material";
-import 'react-credit-cards/es/styles-compiled.css';
-import {useNavigate} from "react-router-dom";
-import {sendOrderInfo} from "./requests/sendOrderIndo";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentsForm from "./PaymentsForm";
+
+
 
 const PaymentsPage = () => {
-    const products = useCart();
-    const dispatch = useDispatchCart();
-    const navigate = useNavigate();
-    const [cardNo, setCardNo] = useState("");
-    const [name, setName] = useState("");
-    const [cvc, setCvc] = useState("");
-    const [date, setDate] = useState("");
-    const [submtBtnDisabled, setSubmitBtnDisabled] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-
-    const handleSubmit = () => {
-        sendOrderInfo(setLoading, products, setError, name, cvc, date, cardNo, navigate);
-    }
-
-    useEffect(()=>{
-        if(cardNo !== "" && name !== "" && cvc != "" && date !=""){
-            setSubmitBtnDisabled(false);
-        } else {
-            setSubmitBtnDisabled(true)
-        }
-    },[cardNo, name, cvc, date])
 
 
+    const testOrder = {
+        date: "2022-22-02",
+        address: "Jakis addres",
+        price: "87",
+        user: 7,
+        products: [
+            {
+                quantity: 2, product: 1
+            },
+            {
+                quantity: 1, product: 2
+            }
+        ]
+     }
+
+    const PUBLIC_KEY="pk_test_51LEfgGA2jOCNBtA0gPI2ap5RGcgevQgTrAGbQdiuGRexPev2ZAPEH0r3zLb3Glc4Y86kWeQa2DA8iz8Bp99syda700E04NyHbX";
+    const stripeTestPromise = loadStripe(PUBLIC_KEY)
+    const [clientSecret, setClientSecret] = useState("");
+
+    useEffect(() => {
+        // Create PaymentIntent as soon as the page loads
+        fetch("/createPayment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(testOrder),
+        })
+            .then((res) => res.json())
+            .then((data) => setClientSecret(data.clientSecret));
+    }, []);
+
+    const appearance = {
+        theme: 'stripe',
+    };
+    const options = {
+        clientSecret,
+        appearance,
+    };
+
+
+console.log()
     return(
-        <div style={{padding: "50px"}}>
-            <div style={{maxWidth: "25%", maxHeight: "25%"}}>
-                <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                        <TextField label="1234 1234 1234 1234" onChange={(e) => setCardNo(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField label="John Smith" onChange={(e) => setName(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <TextField label="23/22" onChange={(e) => setDate(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <TextField label="CVC" onChange={(e) => setCvc(e.target.value)}/>
-                    </Grid>
-                </Grid>
-                <Button sx={{ my: 2, color: "black" }} size="small" disabled={submtBtnDisabled} onClick={handleSubmit}>Submit</Button>
-            </div>
+        <div>
+            {
+                clientSecret && (
+                    <Elements options={options} stripe={stripeTestPromise}>
+                        <PaymentsForm />
+                    </Elements>
+                )
+            }
         </div>
+
+
     )
 }
 

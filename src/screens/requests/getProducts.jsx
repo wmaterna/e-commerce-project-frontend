@@ -11,12 +11,10 @@ export const getProducts = (setLoading, setProducts, setError) => {
             if( responseCode === 200) {
                 setProducts(data)
                 console.log(data)
-            } else {
-                setError(data.error)
+                // setError(data.error)
             }
         })
         .catch((error) => {
-            console.log(error);
         })
         .finally(() => {
             setLoading(false);

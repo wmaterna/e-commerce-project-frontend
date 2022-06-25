@@ -1,56 +1,87 @@
-import React from 'react';
-import {Button, Card, CardActions, CardContent, CardMedia, Grid, Typography} from "@mui/material";
+import React, {useContext, useEffect, useState} from 'react';
+import {
+    Avatar,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia, Divider,
+    Grid, IconButton,
+    List,
+    ListItem, ListItemAvatar, ListItemText,
+    Typography
+} from "@mui/material";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import {useCart, useDispatchCart} from "../components/contextComponents/Cart";
+import {UserStateContext} from "../components/contextComponents/userContext"
 import {useNavigate} from "react-router-dom";
+import ProductDetail from "./ProductDetail";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const HomePage = () => {
-
+const CartPage = () => {
     const products = useCart();
+
+
+    // const {token} = useContext(UserStateContext);
+    // console.log(token)
     const dispatch = useDispatchCart();
     const navigate = useNavigate();
+    const [itemsCount, setItemsCount] = useState();
 
     const handleRemove = (index) => {
         dispatch({ type: "REMOVE", index });
     };
 
     return(
-        <div style={{padding: "50px"}}>
-            <Grid container spacing={2} >
+        <Grid style={{padding: "50px 100px"}}>
+            <Grid container>
+                <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {products.length !== 0 ?
                     products.map((prod, index) => {
-                        return (
-                            <Grid item xs={4}>
-                                <Card sx={{ maxWidth: 350}}>
-                                    <CardMedia
-                                        component="img"
-                                        height="200"
-                                        image="https://images.unsplash.com/photo-1602573852058-ef7c665fcd92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                                        alt="green iguana"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            {prod.Categorie}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {prod.Name}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <ShoppingBasketIcon style={{color: "black", padding: "4px"}} />
-                                        <Button sx={{ my: 2, color: "black" }} size="small" onClick={() => handleRemove(prod)}>Remove from Cart</Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                        )
+                            return (
+                                <>
+                                    <ListItem id={index} alignItems="flex-start"
+                                              style={{padding: "20px"}}
+                                              secondaryAction={
+                                                  <IconButton edge="end" aria-label="delete" onClick={() => handleRemove(index)}>
+                                                      <DeleteIcon />
+                                                  </IconButton>
+                                              }
+                                    >
+                                        <ListItemAvatar>
+                                            <Avatar sx={{ height: '100px', width: '100px' }} alt="product-img" width="100px" src={prod.url} />
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            style={{margin: "3%"}}
+                                            secondary={
+                                                <React.Fragment >
+                                                    <Typography
+                                                        sx={{ display: 'inline' }}
+                                                        component="span"
+                                                        variant="h6"
+                                                        color="text.primary"
+                                                    >
+                                                        {prod.name}
+                                                    </Typography>
+                                                </React.Fragment>
+                                            }
+                                        />
+                                    </ListItem>
+                                    <Divider variant="inset" component="li" />
+                                </>
+                            )
+
                     })
                     :
                     <div>No cart items</div>
                 }
+                </List>
             </Grid>
-            <Button sx={{ my: 2, color: "black" }} size="small" onClick={() => navigate("/payments")}>Finish Transaction</Button>
-        </div>
+            <Grid container justifyContent="flex-end">
+                <Button style={{margin: "20px", padding: "10px"}} variant="contained" size="small" onClick={() => navigate("/payments")}>Let's pay</Button>
+            </Grid>
+        </Grid>
     )
 }
 
-export default HomePage;
+export default CartPage;

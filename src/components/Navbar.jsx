@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useEffect, useState, useContext} from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,13 +7,17 @@ import Button from '@mui/material/Button';
 import "./Navbar.css";
 import {useNavigate} from "react-router-dom";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import {useEffect, useState} from "react";
+import {useDispatchUser, UserStateContext} from "../components/contextComponents/userContext";
+import Cookies from "js-cookie";
 
 
 
 const Navbar = () => {
 
+
+    const dispatch = useDispatchUser();
     const navigate = useNavigate();
+    const [token, setToken] = useState(Cookies.get("jwt-token"))
     const [btnColor, setBtnsColor] = useState("white");
 
     useEffect(() => {
@@ -26,6 +30,12 @@ const Navbar = () => {
 
     const handleChangeLocation = (link) => {
         navigate(link);
+    };
+
+    const handleLogOut = () => {
+        Cookies.remove("jwt-token");
+        setToken(undefined)
+        navigate("/")
     };
 
     return(
@@ -45,15 +55,24 @@ const Navbar = () => {
                             <Button  style={{color: btnColor}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/blog")}>
                                 Blog
                             </Button>
-                            <Button style={{color: btnColor}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/about-us")}>
+                            <Button style={{color: btnColor, zIndex: "10"}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/about-us")}>
                                 About Us
                             </Button>
                         </Box>
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/login")}>
-                            Log In
-                        </Button>
+
+                            {token == undefined ?
+                                <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/login")}>
+                                    Log In
+                                </Button>
+                                :
+                                <Button  sx={{ my: 2, color: "black" }} onClick={() => handleLogOut()}>
+                                    Log Out
+                                </Button>
+                            }
+
+
                         <Button sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/card")}>
                             <ShoppingBasketIcon style={{color: "black", padding: "10px"}} />
                             Cart
