@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./HomePage.css";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {getUserInfo} from "./requests/getUserInfo";
+import Cookies from "js-cookie";
 
 const HomePage = () => {
+    const token = Cookies.get("jwt-token");
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("");
+    const [userInfo, setUserInfo] = useState("");
+
+    useEffect(() => {
+        getUserInfo(setLoading, setUserInfo, token, setError)
+    },[])
     const navigete = useNavigate()
     return(
         <div>

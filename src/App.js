@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import HomePage from "./screens/HomePage";
@@ -6,10 +6,13 @@ import ShopPage from "./screens/ShopPage";
 import PaymentsPage from "./screens/PaymentsPage";
 import CartPage from "./screens/CartPage";
 import LogIn from "./screens/LogIn";
+import UserScreen from "./screens/UserScreen";
 
 
 function App() {
 
+    const [cart, setCart] = useState(null);
+    const value = useMemo(() => ({ cart, setCart }), [cart, setCart]);
 
   return (
           <div>
@@ -21,6 +24,7 @@ function App() {
                   <Route path="/shop" element={<ShopPage/>} />
                   <Route path="/payments" element={<PaymentsPage/>} />
                   <Route path="/card" element={<CartPage/>} />
+                  <Route path="/user/info" element={<UserScreen />} />
               </Routes>
       </Router>
           </div>

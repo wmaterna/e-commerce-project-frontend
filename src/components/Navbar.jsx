@@ -52,12 +52,12 @@ const Navbar = () => {
                             <Button  style={{color: btnColor}} sx={{ my: 2,fontWeight: "bold" }} onClick={() => handleChangeLocation("/shop")}>
                                 Shop
                             </Button>
-                            <Button  style={{color: btnColor}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/blog")}>
-                                Blog
-                            </Button>
-                            <Button style={{color: btnColor, zIndex: "10"}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/about-us")}>
-                                About Us
-                            </Button>
+                            {/*<Button  style={{color: btnColor}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/blog")}>*/}
+                            {/*    Blog*/}
+                            {/*</Button>*/}
+                            {/*<Button style={{color: btnColor, zIndex: "10"}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/about-us")}>*/}
+                            {/*    About Us*/}
+                            {/*</Button>*/}
                         </Box>
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
@@ -67,9 +67,17 @@ const Navbar = () => {
                                     Log In
                                 </Button>
                                 :
+                                <>
+                                <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/user/info")}>
+                                    User profile
+                                </Button>
+                                    <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/orders")}>
+                                        Orders
+                                    </Button>
                                 <Button  sx={{ my: 2, color: "black" }} onClick={() => handleLogOut()}>
                                     Log Out
                                 </Button>
+                                </>
                             }
 
 

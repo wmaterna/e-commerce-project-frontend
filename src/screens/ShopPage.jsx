@@ -32,9 +32,7 @@ const ShopPage = () => {
         getCategories(setLoading, setCategories, setProductList, setError)
     },[]);
 
-    const handleCategoryProductLoad = (id) => {
-        getCategoryItems(id, setLoading, setProductList, setError)
-    }
+
     const handleSubcategoryLaod = (id) => {
         getSubcategoryItems(id, setLoading, setProductList, setError)
     }
@@ -70,7 +68,7 @@ const ShopPage = () => {
                                 console.log(categories[category])
                                 return(
                                     <div className="category-box">
-                                        <Button onClick={() => handleCategoryProductLoad(categories[category].id)} sx={{ my: 1.5, fontWeight: "bold", color: "black", fontSize: "1.1rem" }}>{categories[category].name}</Button>
+                                        <span style={{ my: 1.5, fontWeight: "bold", color: "black", fontSize: "1.1rem", padding: "10px 8px", textTransform: "uppercase"}}>{categories[category].name}</span>
                                         <>
                                             {categories[category].subcategory.map((subcat) => {
                                                 return (<Typography variant="body2" color="text.secondary">
@@ -103,9 +101,14 @@ const ShopPage = () => {
                                                         {currentSubcategory}
                                                     </Typography>
                                                 </CardContent>
-                                                <CardActions>
-                                                    <ShoppingBasketIcon style={{color: "black", padding: "4px"}} />
-                                                    <Button sx={{ my: 2, color: "black" }} size="small" onClick={() => addToCart(prouctsList[prodNo])}>Add to Card</Button>
+                                                <CardActions style={{justifyContent: "space-between"}}>
+                                                    <div>
+                                                    <ShoppingBasketIcon style={{color: "black", padding: "30px 10px 0 10px"}} />
+                                                    <Button sx={{ my: 2, color: "black", paddingBottom: "15px" }} size="small" onClick={() => addToCart(prouctsList[prodNo])}>Add to Card</Button>
+                                                    </div>
+                                                    <Typography style={{padding: "0 15px"}} variant="h6" color="text.secondary">
+                                                        {prouctsList[prodNo].price} $
+                                                    </Typography>
                                                 </CardActions>
                                             </Card>
                                         </Grid>

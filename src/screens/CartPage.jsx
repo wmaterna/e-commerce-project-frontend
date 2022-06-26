@@ -19,11 +19,10 @@ import ProductDetail from "./ProductDetail";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const CartPage = () => {
+    // const products = useCart();
     const products = useCart();
 
 
-    // const {token} = useContext(UserStateContext);
-    // console.log(token)
     const dispatch = useDispatchCart();
     const navigate = useNavigate();
     const [itemsCount, setItemsCount] = useState();

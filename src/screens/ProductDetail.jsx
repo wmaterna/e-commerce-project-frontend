@@ -9,11 +9,24 @@ import {
     Typography,
     Drawer,
     Accordion,
-    AccordionSummary, AccordionDetails, TextField, Divider
+    AccordionSummary,
+    AccordionDetails,
+    TextField,
+    Divider,
+    IconButton,
+    Dialog,
+    DialogContent,
+    DialogActions,
+    CircularProgress
 } from "@mui/material";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import {getProductDetail} from "./requests/getProductDetail";
 import {useDispatchCart} from "../components/contextComponents/Cart";
+import Cookies from "js-cookie";
+import {addReview} from "./requests/addReview";
+import {getUserInfo} from "./requests/getUserInfo";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {deleteReview} from "./requests/deleteReview";
 
 function ExpandMoreIcon() {
     return null;
@@ -21,24 +34,50 @@ function ExpandMoreIcon() {
 
 const ProductDetail = (props) => {
 
+    const token = Cookies.get("jwt-token");
     const dispatch = useDispatchCart();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [productInfo, setProductInfo]= useState({})
     const [opinions, setOpinions] = useState({});
     const [showForm, setShowForm] = useState(false);
+    const [reviewContent, setReviewContent] = useState("")
+    const [userInfo, setUserInfo] = useState("");
+    const [removeDialogOpen, setRemoveDialogOpen] = useState(false);
+    const [opinionId, setOpinionId] = useState();
 
     useEffect(() => {
         if(props.drawerOpen){
             getProductDetail(props.id, setLoading, setProductInfo, setOpinions, setError)
+            getUserInfo(setLoading, setUserInfo, token, setError)
         }else {
             setShowForm(false)
         }
     },[props.drawerOpen]);
 
+
+    // useEffect(() => {
+    //     if(!removeDialogOpen || !setShowForm){
+    //         getProductDetail(props.id, setLoading, setProductInfo, setOpinions, setError)
+    //         getUserInfo(setLoading, setUserInfo, token, setError)
+    //     }
+    // },[removeDialogOpen, showForm]);
+
     const addToCart = (item) => {
         dispatch({ type: "ADD", item });
     };
+
+    const handleRemoveOpinion = () => {
+        deleteReview(opinionId, token)
+        setOpinionId(undefined)
+        setRemoveDialogOpen(false)
+    }
+
+
+    const handleAddReview = () => {
+        addReview(token,reviewContent, productInfo.id);
+        setShowForm(false);
+    }
 
     return(<Drawer
             anchor="right"
@@ -47,7 +86,7 @@ const ProductDetail = (props) => {
             >
         {
             loading ?
-                <div>Loading ... </div>:
+                <div><CircularProgress /> </div>:
                 <div>
                     {
                         productInfo.length != 0 ?
@@ -70,8 +109,11 @@ const ProductDetail = (props) => {
                                          {productInfo.description}
                                           </Typography>
                                         </CardContent>
-                                            <Grid container justifyContent="flex-end" style={{padding: "0 20px"}} >
-                                                <CardActions>
+                                            <Grid container justifyContent="flex-end" style={{padding: "0 10px"}} >
+                                                <CardActions style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
+                                                    <Typography style={{padding: "0"}} variant="h6" color="text.secondary">
+                                                        <b>Price: </b>{productInfo.price} $
+                                                    </Typography>
                                                     <Button onClick={() => {
                                                         addToCart(productInfo);
                                                         props.onClose();
@@ -94,10 +136,10 @@ const ProductDetail = (props) => {
                                                                 label="Review"
                                                                 multiline
                                                                 rows={3}
-                                                                defaultValue="Review message"
+                                                                onChange={(e) => setReviewContent(e.target.value)}
                                                             />
                                                             <Grid style={{padding: "20px"}}>
-                                                                <Button variant="contained" style={{color: "black", padding: "10px", marginRight: "20px"}}>
+                                                                <Button onClick={handleAddReview} variant="contained" style={{color: "black", padding: "10px", marginRight: "20px"}}>
                                                                     Add
                                                                 </Button>
                                                                 <Button onClick={() => setShowForm(false)} variant="outlined" style={{color: "black", padding: "10px"}}>
@@ -116,7 +158,7 @@ const ProductDetail = (props) => {
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={2}>
-                                                            {!showForm &&
+                                                            {(!showForm && token != undefined) &&
                                                                 <Button onClick={()=>setShowForm(true)} size="small" style={{color: "black", paddingBottom: "15px"}}>Add review</Button>
                                                             }  </Grid>
                                                         </Grid>
@@ -128,9 +170,25 @@ const ProductDetail = (props) => {
                                                                     aria-controls="panel1a-content"
                                                                     id="panel1a-header"
                                                                 >
-                                                                    <Typography gutterBottom  component="div">
+                                                                    <div style={{display: "flex", width: "100%", justifyContent: "space-between" }}>
+                                                                    <Typography style={{paddingTop: "10px" }} gutterBottom  component="div">
                                                                         {opinions[opinion].user[0].name}
                                                                     </Typography>
+                                                                    <>
+                                                                    {userInfo !== undefined &&
+                                                                        <>
+                                                                        {opinions[opinion].user[0].id === userInfo.id &&
+                                                                                <IconButton style={{paddingBottom: "20px"}} aria-label="delete" onClick={() => {{
+                                                                                    setRemoveDialogOpen(true);
+                                                                                    setOpinionId(opinions[opinion].id)
+                                                                                }
+                                                                                }}>
+                                                                                    <DeleteIcon />
+                                                                                </IconButton>
+                                                                        }
+                                                                        </>
+                                                                    }</>
+                                                                    </div>
                                                                 </AccordionSummary>
                                                                 <AccordionDetails>
                                                                     <Typography gutterBottom variant="body2" component="div">
@@ -150,10 +208,12 @@ const ProductDetail = (props) => {
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={2}>
-                                                                {!showForm &&
-                                                                    <Button onClick={() => setShowForm(true)}
-                                                                            size="small" style={{
-                                                                        color: "black",
+                                                                {(!showForm && token != undefined) &&
+                                                                    <Button disabled={token == undefined}
+                                                                            onClick={() => setShowForm(true)}
+                                                                            size="small"
+                                                                            style={{
+                                                                            color: "black",
                                                                         paddingBottom: "15px"
                                                                     }}>Add review</Button>}
                                                                 </Grid>
@@ -171,6 +231,24 @@ const ProductDetail = (props) => {
                     }
                 </div>
         }
+        <Dialog open={removeDialogOpen}>
+            <DialogContent>
+                <Typography gutterBottom>
+                    Are you sure you want to delete you review?
+                </Typography>
+            </DialogContent>
+            <DialogActions>
+                <Button autoFocus onClick={handleRemoveOpinion}>
+                    Remove
+                </Button>
+                <Button autoFocus onClick={() => {{
+                    setOpinionId(undefined);
+                    setRemoveDialogOpen(false)
+                }}}>
+                    Cancel
+                </Button>
+            </DialogActions>
+        </Dialog>
 
     </Drawer>)
 }
