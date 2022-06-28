@@ -7,6 +7,8 @@ import PaymentsPage from "./screens/PaymentsPage";
 import CartPage from "./screens/CartPage";
 import LogIn from "./screens/LogIn";
 import UserScreen from "./screens/UserScreen";
+import PaymentDetails from "./screens/PaymentDetails";
+// import {CartProvider} from "./components/contextComponents/Cart";
 
 
 function App() {
@@ -19,12 +21,13 @@ function App() {
               <Router>
               <Navbar />
               <Routes path="/" >
-                  <Route path="/" element={<HomePage/>} />
-                  <Route path="/login" element={<LogIn />} />
-                  <Route path="/shop" element={<ShopPage/>} />
-                  <Route path="/payments" element={<PaymentsPage/>} />
-                  <Route path="/card" element={<CartPage/>} />
-                  <Route path="/user/info" element={<UserScreen />} />
+                      <Route path="/" element={<HomePage/>} />
+                      <Route path="/login" element={<LogIn />} />
+                      <Route path="/shop" element={<ShopPage/>} />
+                      <Route path="/payments" element={<PaymentsPage/>} />
+                      <Route path="/card" element={<CartPage/>} />
+                      <Route path="/user/info" element={<UserScreen />} />
+                        <Route path="/payments-details" element={<PaymentDetails />} />
               </Routes>
       </Router>
           </div>

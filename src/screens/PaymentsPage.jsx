@@ -1,41 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentsForm from "./PaymentsForm";
 
+import PaymentsForm from "./PaymentsForm";
+import {CartStateContext} from "../components/contextComponents/Cart";
+import {payment} from "./requests/makePayment";
+import Cookies from "js-cookie";
 
 
 const PaymentsPage = () => {
 
-
-    const testOrder = {
-        date: "2022-22-02",
-        address: "Jakis addres",
-        price: "87",
-        user: 7,
-        products: [
-            {
-                quantity: 2, product: 1
-            },
-            {
-                quantity: 1, product: 2
-            }
-        ]
-     }
-
+    const {total} = useContext(CartStateContext);
+    const [token, setToken] = useState(Cookies.get("jwt-token"))
     const PUBLIC_KEY="pk_test_51LEfgGA2jOCNBtA0gPI2ap5RGcgevQgTrAGbQdiuGRexPev2ZAPEH0r3zLb3Glc4Y86kWeQa2DA8iz8Bp99syda700E04NyHbX";
     const stripeTestPromise = loadStripe(PUBLIC_KEY)
     const [clientSecret, setClientSecret] = useState("");
 
     useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
-        fetch("/createPayment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(testOrder),
-        })
-            .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret));
+        payment(total, token, setClientSecret)
     }, []);
 
     const appearance = {
@@ -47,7 +29,6 @@ const PaymentsPage = () => {
     };
 
 
-console.log()
     return(
         <div>
             {

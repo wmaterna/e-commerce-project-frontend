@@ -1,18 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {getProducts} from "./requests/getProducts";
 import {CardMedia, CardActions, Button, Grid, Card, CardContent, Typography, CircularProgress} from "@mui/material";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import { useCart, useDispatchCart } from "../components/contextComponents/Cart";
+// import { useCart, useDispatchCart } from "../components/contextComponents/Cart";
 import "./Shop.css"
 import {getCategories} from "./requests/getCategories";
 import {getSubcategoryItems} from "./requests/getSubcategoryItems";
 import {getCategoryItems} from "./requests/getCategoryItems";
 import {useNavigate} from "react-router-dom";
 import ProductDetail from "./ProductDetail";
+import {CartStateContext} from "../components/contextComponents/Cart";
 
 
 const ShopPage = () => {
-    const dispatch = useDispatchCart();
+    // const dispatch = useDispatchCart();
+    const {addItem} = useContext(CartStateContext)
     const navigate = useNavigate();
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false);
@@ -46,7 +48,7 @@ const ShopPage = () => {
     }
 
     const addToCart = (item) => {
-        dispatch({ type: "ADD", item });
+
     };
 
 
@@ -104,7 +106,7 @@ const ShopPage = () => {
                                                 <CardActions style={{justifyContent: "space-between"}}>
                                                     <div>
                                                     <ShoppingBasketIcon style={{color: "black", padding: "30px 10px 0 10px"}} />
-                                                    <Button sx={{ my: 2, color: "black", paddingBottom: "15px" }} size="small" onClick={() => addToCart(prouctsList[prodNo])}>Add to Card</Button>
+                                                    <Button sx={{ my: 2, color: "black", paddingBottom: "15px" }} size="small" onClick={() => addItem(prouctsList[prodNo])}>Add to Card</Button>
                                                     </div>
                                                     <Typography style={{padding: "0 15px"}} variant="h6" color="text.secondary">
                                                         {prouctsList[prodNo].price} $

@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import {getProductDetail} from "./requests/getProductDetail";
-import {useDispatchCart} from "../components/contextComponents/Cart";
+// import {useDispatchCart} from "../components/contextComponents/Cart";
 import Cookies from "js-cookie";
 import {addReview} from "./requests/addReview";
 import {getUserInfo} from "./requests/getUserInfo";
@@ -35,7 +35,7 @@ function ExpandMoreIcon() {
 const ProductDetail = (props) => {
 
     const token = Cookies.get("jwt-token");
-    const dispatch = useDispatchCart();
+    // const dispatch = useDispatchCart();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [productInfo, setProductInfo]= useState({})
@@ -64,7 +64,7 @@ const ProductDetail = (props) => {
     // },[removeDialogOpen, showForm]);
 
     const addToCart = (item) => {
-        dispatch({ type: "ADD", item });
+        // dispatch({ type: "ADD", item });
     };
 
     const handleRemoveOpinion = () => {

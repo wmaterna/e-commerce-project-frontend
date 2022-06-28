@@ -1,24 +1,13 @@
-const payment = () => {
-    fetch("http://localhost:3000/payment", {
+export const payment = (total, token, setClientSecret) => {
+    fetch("/createPayment", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
+        headers: { "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            items: [
-                { id: 1, quantity: 3 },
-                { id: 2, quantity: 1 },
-            ],
+            amount: total.toString()
         }),
     })
-        .then(res => {
-            if (res.ok) return res.json()
-            return res.json().then(json => Promise.reject(json))
-        })
-        .then(({ url }) => {
-            window.location = url
-        })
-        .catch(e => {
-            console.error(e.error)
-        })
+        .then((res) => res.json())
+        .then((data) => setClientSecret(data.clientSecret));
 }
