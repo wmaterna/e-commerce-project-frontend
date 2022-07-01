@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
     CardMedia,
     CardActions,
@@ -21,12 +21,13 @@ import {
 } from "@mui/material";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import {getProductDetail} from "./requests/getProductDetail";
-// import {useDispatchCart} from "../components/contextComponents/Cart";
-import Cookies from "js-cookie";
 import {addReview} from "./requests/addReview";
 import {getUserInfo} from "./requests/getUserInfo";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {deleteReview} from "./requests/deleteReview";
+import {userStateContext} from "../components/contextComponents/userContext";
+import {useNavigate} from "react-router-dom";
+import {CartStateContext} from "../components/contextComponents/Cart";
 
 function ExpandMoreIcon() {
     return null;
@@ -34,8 +35,9 @@ function ExpandMoreIcon() {
 
 const ProductDetail = (props) => {
 
-    const token = Cookies.get("jwt-token");
-    // const dispatch = useDispatchCart();
+    const {token} = useContext(userStateContext);
+    const {addItem} = useContext(CartStateContext);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [productInfo, setProductInfo]= useState({})
@@ -56,26 +58,16 @@ const ProductDetail = (props) => {
     },[props.drawerOpen]);
 
 
-    // useEffect(() => {
-    //     if(!removeDialogOpen || !setShowForm){
-    //         getProductDetail(props.id, setLoading, setProductInfo, setOpinions, setError)
-    //         getUserInfo(setLoading, setUserInfo, token, setError)
-    //     }
-    // },[removeDialogOpen, showForm]);
-
-    const addToCart = (item) => {
-        // dispatch({ type: "ADD", item });
-    };
 
     const handleRemoveOpinion = () => {
-        deleteReview(opinionId, token)
+        deleteReview(opinionId, token, productInfo.id, setLoading, setProductInfo, setOpinions,setError, setUserInfo)
         setOpinionId(undefined)
         setRemoveDialogOpen(false)
     }
 
 
     const handleAddReview = () => {
-        addReview(token,reviewContent, productInfo.id);
+        addReview(token,reviewContent, productInfo.id, setLoading, setProductInfo, setOpinions,setError, setUserInfo);
         setShowForm(false);
     }
 
@@ -115,7 +107,7 @@ const ProductDetail = (props) => {
                                                         <b>Price: </b>{productInfo.price} $
                                                     </Typography>
                                                     <Button onClick={() => {
-                                                        addToCart(productInfo);
+                                                        addItem(productInfo);
                                                         props.onClose();
                                                     }}
                                                             style={{color: "black"}}

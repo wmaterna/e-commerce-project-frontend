@@ -1,7 +1,7 @@
 import {getProductDetail} from "./getProductDetail";
 import {getUserInfo} from "./getUserInfo";
 
-export const deleteReview = (opinionId, token) => {
+export const deleteReview = (opinionId, token, productId, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
     fetch(`/opinion/${opinionId}`, {
         method: "DELETE",
         headers: {
@@ -15,6 +15,8 @@ export const deleteReview = (opinionId, token) => {
         })
         .then(([responseCode, data]) => {
             if( responseCode === 200) {
+                getProductDetail(productId, setLoading, setProductInfo, setOpinions, setError)
+                getUserInfo(setLoading, setUserInfo, token, setError)
             }
         })
         .catch((error) => {

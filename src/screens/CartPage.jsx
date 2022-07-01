@@ -1,29 +1,23 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     Avatar,
     Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia, Divider,
+    Divider,
     Grid, IconButton,
     List,
     ListItem, ListItemAvatar, ListItemText,
     Typography
 } from "@mui/material";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-// import {useCart, useDispatchCart} from "../components/contextComponents/Cart";
-import {UserStateContext} from "../components/contextComponents/userContext"
 import {useNavigate} from "react-router-dom";
-import ProductDetail from "./ProductDetail";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {CartStateContext} from "../components/contextComponents/Cart";
+import {userStateContext} from "../components/contextComponents/userContext";
 
 const CartPage = () => {
     const {items, total, addItem, removeItem} = useContext(CartStateContext);
-    const [basketTotal, setBasketTotal] = useState(0)
+    const {token} = useContext(userStateContext);
     const navigate = useNavigate();
     console.log(total)
     return(
@@ -95,9 +89,18 @@ const CartPage = () => {
                         variant="h5"
                         color="text.primary"
                     >
-                        {items.length !== 0 ? <><b>Total: </b> {total} <b>$</b></> : <><b>Total: </b> 0 <b>$</b></>}
+                        {items.length !== 0 ? <><b>Total: </b> {total.toFixed(2)} <b>$</b></> : <><b>Total: </b> 0 <b>$</b></>}
                     </Typography>
-                    {items.length !== 0 && <Button style={{margin: "20px", padding: "10px"}} variant="contained" size="small" onClick={() => navigate("/payments")}>Let's pay</Button>}
+                    {items.length !== 0 &&
+                        <>{
+                        token ?
+                            <Button style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" className="greenBtn" size="small" onClick={() => navigate("/pre-order-info")}>Order details</Button>
+                            :
+                            <Button style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" size="small" onClick={() => navigate("/login")}>Log in</Button>
+                        }
+                        </>
+
+                    }
                 </Grid>
 
         </Grid>

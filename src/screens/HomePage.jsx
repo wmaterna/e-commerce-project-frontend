@@ -1,25 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import "./HomePage.css";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {getUserInfo} from "./requests/getUserInfo";
-import Cookies from "js-cookie";
+import {userStateContext} from "../components/contextComponents/userContext";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 const HomePage = () => {
-    const token = Cookies.get("jwt-token");
+    const navigete = useNavigate()
+    const {token, logOut} = useContext(userStateContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("");
     const [userInfo, setUserInfo] = useState("");
 
     useEffect(() => {
         getUserInfo(setLoading, setUserInfo, token, setError)
-    },[])
-    const navigete = useNavigate()
+    },[]);
+
+
     return(
         <div>
         <div className="home-page-container">
             <div className="welcome-box">
-                <h2>The easiest way to make healthy life by buing your favourite plants</h2>
+                <h2>The easiest way to make healthy life is by buing your favourite plants</h2>
                 <p>Very beautiful plnt decorations make our lives healthy and home enviroment so that the atmosphere becomes calmer</p>
                 <Button onClick={() => navigete("/shop")} sx={{ my: 2, color: "white",fontWeight: "bold" }}>Shop now</Button>
             </div>

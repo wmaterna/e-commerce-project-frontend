@@ -1,5 +1,7 @@
 import React from 'react';
 import "./LogIn.css";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
 
 function LogIn() {
 
@@ -19,8 +21,8 @@ function LogIn() {
                     PLANTS
                 </div>
             </div>
-            <p><button className="login-with-google-btn" onClick={() => handleLogin("/login-google")}>Login Google</button></p>
-            <p><button className="login-with-github-btn" onClick={() => handleLogin("/login-github")}>Login GitHub</button></p>
+            <p><button className="login-with" onClick={() => handleLogin("/login-google")}><GoogleIcon style={{color: "black"}}/><span>Login Google</span></button></p>
+            <p><button className="login-with" onClick={() => handleLogin("/login-github")}><GitHubIcon style={{color: "black"}}/><span>Login GitHub</span></button></p>
         </div>
         </div>
     );

@@ -7,18 +7,17 @@ import Button from '@mui/material/Button';
 import "./Navbar.css";
 import {useNavigate} from "react-router-dom";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import {useDispatchUser, UserStateContext} from "../components/contextComponents/userContext";
 import Cookies from "js-cookie";
+import {userStateContext} from "./contextComponents/userContext";
 
 
 
 const Navbar = () => {
 
-
-    const dispatch = useDispatchUser();
     const navigate = useNavigate();
-    const [token, setToken] = useState(Cookies.get("jwt-token"))
     const [btnColor, setBtnsColor] = useState("white");
+    const {token, logOut} = useContext(userStateContext);
+
 
     useEffect(() => {
         if(window.location.pathname !== "/"){
@@ -32,11 +31,6 @@ const Navbar = () => {
         navigate(link);
     };
 
-    const handleLogOut = () => {
-        Cookies.remove("jwt-token");
-        setToken(undefined)
-        navigate("/")
-    };
 
     return(
         <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}} >
@@ -74,7 +68,7 @@ const Navbar = () => {
                                     <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/orders")}>
                                         Orders
                                     </Button>
-                                <Button  sx={{ my: 2, color: "black" }} onClick={() => handleLogOut()}>
+                                <Button  sx={{ my: 2, color: "black" }} onClick={() => logOut()}>
                                     Log Out
                                 </Button>
                                 </>

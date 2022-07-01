@@ -13,7 +13,6 @@ import {CartStateContext} from "../components/contextComponents/Cart";
 
 
 const ShopPage = () => {
-    // const dispatch = useDispatchCart();
     const {addItem} = useContext(CartStateContext)
     const navigate = useNavigate();
     const [products, setProducts] = useState([])
@@ -43,17 +42,9 @@ const ShopPage = () => {
        setDetailProductOpen(true)
     }
 
-    const handleAddToCard = (id) => {
-        console.log(id)
-    }
-
-    const addToCart = (item) => {
-
-    };
-
 
     return(
-        <Grid container style={{padding: "50px"}} spacing={6}>
+        <Grid container style={{padding: "30px"}} spacing={2}>
             {loading
                         ?
                 <div style={{margin: "auto"}}>
@@ -63,14 +54,14 @@ const ShopPage = () => {
                     <>
                    {(categories.length !== 0 && prouctsList.length !== 0) ?
                        <>
-                    <Grid>
+                    <Grid item xs={2}>
                         <div className="sidebar">
                             <h2>CATEGORIES</h2>
                             {Object.keys(categories).map((category) => {
                                 console.log(categories[category])
                                 return(
                                     <div className="category-box">
-                                        <span style={{ my: 1.5, fontWeight: "bold", color: "black", fontSize: "1.1rem", padding: "10px 8px", textTransform: "uppercase"}}>{categories[category].name}</span>
+                                        <span style={{ my: 1.5, fontWeight: "bold", color: "black", fontSize: "1.1rem", padding: "10px 9px", textTransform: "uppercase"}}>{categories[category].name}</span>
                                         <>
                                             {categories[category].subcategory.map((subcat) => {
                                                 return (<Typography variant="body2" color="text.secondary">

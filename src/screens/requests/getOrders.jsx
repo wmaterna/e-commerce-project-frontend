@@ -1,17 +1,11 @@
-export const postOrder = (token, date, price, address, basket , setLoading, setOrderId) => {
+export const getOrders = (token, setOrderDetails, setLoading, setError) => {
     setLoading(true)
     fetch(`/order`, {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({
-            date: date,
-            price: price,
-            address: address,
-            products: basket,
-        })
     })
         .then((res) => {
             const data = res.json();
@@ -20,8 +14,9 @@ export const postOrder = (token, date, price, address, basket , setLoading, setO
         })
         .then(([responseCode, data]) => {
             if( responseCode == 200) {
-                console.log(data)
-                setOrderId(data.id)
+                setOrderDetails(data)
+            } else {
+                setError("An error occured")
             }
         })
         .catch((error) => {

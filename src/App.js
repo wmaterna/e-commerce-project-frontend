@@ -8,7 +8,8 @@ import CartPage from "./screens/CartPage";
 import LogIn from "./screens/LogIn";
 import UserScreen from "./screens/UserScreen";
 import PaymentDetails from "./screens/PaymentDetails";
-// import {CartProvider} from "./components/contextComponents/Cart";
+import PreOrderInfo from "./screens/PreOrderInfo";
+import Orders from "./screens/Orders";
 
 
 function App() {
@@ -27,7 +28,9 @@ function App() {
                       <Route path="/payments" element={<PaymentsPage/>} />
                       <Route path="/card" element={<CartPage/>} />
                       <Route path="/user/info" element={<UserScreen />} />
-                        <Route path="/payments-details" element={<PaymentDetails />} />
+                      <Route path="/payments-details" element={<PaymentDetails />} />
+                      <Route path="/pre-order-info" element={<PreOrderInfo />} />
+                      <Route path="/orders" element={<Orders />} />
               </Routes>
       </Router>
           </div>

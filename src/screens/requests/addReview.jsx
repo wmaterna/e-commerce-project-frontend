@@ -1,4 +1,7 @@
-export const addReview = (token, content, productId) => {
+import {getProductDetail} from "./getProductDetail";
+import {getUserInfo} from "./getUserInfo";
+
+export const addReview = (token, content, productId, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
     fetch(`/opinion`, {
         method: "POST",
         headers: {
@@ -17,7 +20,8 @@ export const addReview = (token, content, productId) => {
         })
         .then(([responseCode, data]) => {
             if( responseCode === 200) {
-                console.log(data)
+                getProductDetail(productId, setLoading, setProductInfo, setOpinions, setError)
+                getUserInfo(setLoading, setUserInfo, token, setError)
             }
         })
         .catch((error) => {

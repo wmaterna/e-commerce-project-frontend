@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {getUserInfo} from "./requests/getUserInfo";
 import Cookies from "js-cookie";
 import {CircularProgress, Button, Divider, IconButton, List, ListItem, TextField, Typography} from "@mui/material";
 import {updateUsersData} from "./requests/updateUsersData";
+import {userStateContext} from "../components/contextComponents/userContext";
+import {useNavigate} from "react-router-dom";
 
 
 export default function UserScreen() {
-    const token = Cookies.get("jwt-token");
+    const navigate = useNavigate();
+    const {token} = useContext(userStateContext);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("");
     const [userInfo, setUserInfo] = useState(undefined);
-
     const [editForm, setEditForm] = useState(false)
-
     const [street, setStreet] = useState("");
     const [postCode, setPostCode] = useState("");
     const [city, setCity] = useState("");
@@ -23,6 +24,9 @@ export default function UserScreen() {
 
 
     useEffect(() => {
+        if(token == undefined){
+            navigate("/login");
+        }
         getUserInfo(setLoading, setUserInfo, token, setError)
     },[])
 
@@ -278,8 +282,8 @@ export default function UserScreen() {
                             </div>
                         </List>
                             <div>
-                                <Button disabled={saveDisabled || !editForm} onClick={handleChangeData}>Save changes</Button>
-                                <Button onClick={() => setEditForm(!editForm)}>Edit data</Button>
+                                <Button style={{color: "white", padding: "10px 20px", backgroundColor: "#557C55"}} disabled={saveDisabled || !editForm} onClick={handleChangeData}>Save changes</Button>
+                                <Button style={{color: "#557C55"}} onClick={() => setEditForm(!editForm)}>Edit data</Button>
                             </div>
 
                         </>
