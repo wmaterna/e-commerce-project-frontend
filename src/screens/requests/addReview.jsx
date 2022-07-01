@@ -20,6 +20,7 @@ export const addReview = (token, content, productId, setLoading, setProductInfo,
         })
         .then(([responseCode, data]) => {
             if( responseCode === 200) {
+                console.log(data)
                 getProductDetail(productId, setLoading, setProductInfo, setOpinions, setError)
                 getUserInfo(setLoading, setUserInfo, token, setError)
             } else{

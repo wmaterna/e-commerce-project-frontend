@@ -17,7 +17,6 @@ export default function UserScreen() {
     const [postCode, setPostCode] = useState("");
     const [city, setCity] = useState("");
     const [apartment, setApartment] = useState("");
-
     const [saveDisabled, setSaveBtnDisabled] = useState(false)
 
 
@@ -38,8 +37,146 @@ export default function UserScreen() {
     },[street, postCode, city, apartment])
 
     const handleChangeData = () => {
-        updateUsersData(userInfo.name, street, city, apartment, postCode, token, setLoading, setUserInfo, setError);
+        const updatedData = {
+            name: userInfo.name,
+            street: street,
+            city: city,
+            apartment: apartment,
+            postCode: postCode
+        }
+        updateUsersData(updatedData, token, setLoading, setUserInfo, setError);
         setEditForm(false);
+    }
+
+    function getListItem(type, typeName){
+        if(type && !editForm){
+            return(
+                <>
+                    <Divider variant="inset" component="li" />
+                    <ListItem alignItems="flex-start"
+                              style={{padding: "20px", flexDirection: "column"}}
+                    >
+                        <Typography
+                            sx={{ display: 'inline' }}
+                            component="span"
+                            variant="h6"
+                            color="text.primary"
+                        >
+                            {typeName}
+                        </Typography>
+                        <Typography
+                            sx={{ display: 'inline' }}
+                            component="span"
+                            variant="p"
+                            color="text.primary"
+                        >
+                            {type}
+                        </Typography>
+                    </ListItem>
+                </>
+            )
+        } else {
+            return(
+                <ListItem alignItems="flex-start"
+                          style={{padding: "20px", flexDirection: "column"}}
+                >
+                    <Typography
+                        sx={{ display: 'inline' }}
+                        component="span"
+                        variant="h6"
+                        color="text.primary"
+                    >
+                        {typeName}
+                    </Typography>
+                </ListItem>)
+        }
+    }
+
+    function renderUserInfo() {
+        if(userInfo !== undefined){
+            return(
+                <>
+                    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                        <ListItem alignItems="flex-start"
+                                  style={{padding: "20px", flexDirection: "column"}}
+                        >
+                            <Typography
+                                sx={{ display: 'inline' }}
+                                component="span"
+                                variant="h6"
+                                color="text.primary"
+                            >
+                                Name
+                            </Typography>
+                            <Typography
+                                sx={{ display: 'inline' }}
+                                component="span"
+                                variant="p"
+                                color="text.primary"
+                            >
+                                {userInfo.name}
+                            </Typography>
+                        </ListItem>
+                        {getListItem(userInfo.street, "Street")}
+                        <div>
+                            {editForm &&
+                                <TextField
+                                    id="filled-basic"
+                                    style={{padding: "20px"}}
+                                    onChange={(e) => setStreet(e.target.value)}
+                                />
+
+                            }
+                        </div>
+
+                        {getListItem(userInfo.apartment_no, "Apartment Number")}
+                        <div>
+                            {editForm &&
+                                <TextField
+                                    id="filled-basic"
+                                    style={{padding: "20px"}}
+                                    onChange={(e) => setApartment(e.target.value)}
+                                />
+
+                            }
+                        </div>
+                        {getListItem(userInfo.post_code, "Post code")}
+                        <div>
+                            {editForm &&
+                                <TextField
+                                    id="filled-basic"
+                                    style={{padding: "20px"}}
+                                    onChange={(e) => setPostCode(e.target.value)}
+                                />
+
+                            }
+                        </div>
+                        {getListItem(userInfo.city, "City")}
+                        <div>
+                            {editForm &&
+                                <TextField
+                                    id="filled-basic"
+                                    style={{padding: "20px"}}
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+
+                            }
+                        </div>
+                    </List>
+                    <div>
+                        <Button style={{color: "white", padding: "10px 20px", backgroundColor: "#557C55"}} disabled={saveDisabled || !editForm} onClick={handleChangeData}>Save changes</Button>
+                        <Button style={{color: "#557C55"}} onClick={() => setEditForm(!editForm)}>Edit data</Button>
+                    </div>
+
+                </>
+            )
+        } else {
+            return(
+                <>
+                    Access expired, log in
+                </>
+            )
+        }
     }
 
     return (
@@ -48,249 +185,7 @@ export default function UserScreen() {
                 <CircularProgress/>
                 :
                 <div style={{padding: "50px"}}>
-                    {userInfo !== undefined ?
-                        <>
-                        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                            <ListItem alignItems="flex-start"
-                                      style={{padding: "20px", flexDirection: "column"}}
-                            >
-                                <Typography
-                                    sx={{ display: 'inline' }}
-                                    component="span"
-                                    variant="h6"
-                                    color="text.primary"
-                                >
-                                    Name
-                                </Typography>
-                                <Typography
-                                    sx={{ display: 'inline' }}
-                                    component="span"
-                                    variant="p"
-                                    color="text.primary"
-                                >
-                                    {userInfo.name}
-                                </Typography>
-                            </ListItem>
-
-
-
-                            {(userInfo.street && !editForm) ?
-                                <>
-                                    <Divider variant="inset" component="li" />
-                                    <ListItem alignItems="flex-start"
-                                    style={{padding: "20px", flexDirection: "column"}}
-                                    >
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="h6"
-                                            color="text.primary"
-                                        >
-                                            Street
-                                        </Typography>
-                                    <Typography
-                                    sx={{ display: 'inline' }}
-                                    component="span"
-                                    variant="p"
-                                    color="text.primary"
-                                    >
-                                {userInfo.street}
-                                    </Typography>
-                                    </ListItem>
-                                </> :
-                                <>
-                                    <ListItem alignItems="flex-start"
-                                              style={{padding: "20px", flexDirection: "column"}}
-                                             >
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="h6"
-                                            color="text.primary"
-                                        >
-                                            Street
-                                        </Typography>
-                                    </ListItem>
-
-                                </>
-                            }
-                            <div>
-                                {editForm &&
-                                    <TextField
-                                        id="filled-basic"
-                                        style={{padding: "20px"}}
-                                        onChange={(e) => setStreet(e.target.value)}
-                                    />
-
-                                }
-                            </div>
-
-                            {(userInfo.apartment_no && !editForm) ?
-                                <>
-                                    <Divider variant="inset" component="li" />
-                                    <ListItem alignItems="flex-start"
-                                              style={{padding: "20px", flexDirection: "column"}}
-                                    >
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="h6"
-                                            color="text.primary"
-                                        >
-                                            Apartment Number
-                                        </Typography>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="p"
-                                            color="text.primary"
-                                        >
-                                            {userInfo.apartment_no}
-                                        </Typography>
-                                    </ListItem>
-                                </>:
-                                <>
-
-                                    <ListItem alignItems="flex-start"
-                                              style={{padding: "20px"}}
-                                    >
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="h6"
-                                            color="text.primary"
-                                        >
-                                            Apartment Number
-                                        </Typography>
-                                    </ListItem>
-
-                                </>
-
-                            }
-                            <div>
-                                {editForm &&
-                                    <TextField
-                                        id="filled-basic"
-                                        style={{padding: "20px"}}
-                                        onChange={(e) => setApartment(e.target.value)}
-                                    />
-
-                                }
-                            </div>
-                            {(userInfo.post_code && !editForm) ?
-                                <>
-                                <Divider variant="inset" component="li" />
-                                <ListItem alignItems="flex-start"
-                                          style={{padding: "20px", flexDirection: "column"}}
-                                >
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="h6"
-                                        color="text.primary"
-                                    >
-                                        Post code
-                                    </Typography>
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="p"
-                                        color="text.primary"
-                                    >
-                                        {userInfo.post_code}
-                                    </Typography>
-                                </ListItem>
-                            </> :
-                                <>
-
-                                    <ListItem alignItems="flex-start"
-                                              style={{padding: "20px", flexDirection: "column"}}>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="h6"
-                                            color="text.primary"
-                                        >
-                                            Post code
-                                        </Typography>
-                                    </ListItem>
-
-                                </>
-                            }
-                            <div>
-                                {editForm &&
-                                    <TextField
-                                        id="filled-basic"
-                                        style={{padding: "20px"}}
-                                        onChange={(e) => setPostCode(e.target.value)}
-                                    />
-
-                                }
-                            </div>
-                            {(userInfo.city && !editForm) ?
-                                <>
-                                    <Divider variant="inset" component="li" />
-                                    <ListItem alignItems="flex-start"
-                                              style={{padding: "20px", flexDirection: "column"}}
-
-                                    >
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="h6"
-                                            color="text.primary"
-                                        >
-                                           City
-                                        </Typography>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="p"
-                                            color="text.primary"
-                                        >
-                                            {userInfo.city}
-                                        </Typography>
-                                    </ListItem>
-                                </>
-                                :
-                                <>
-
-                                    <ListItem alignItems="flex-start"
-                                              style={{padding: "20px", flexDirection: "column", justifyContent: "space-between"}}>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="h6"
-                                            color="text.primary"
-                                        >
-                                            City
-                                        </Typography>
-                                    </ListItem>
-
-                                </>
-                            }
-                            <div>
-                                {editForm &&
-                                    <TextField
-                                        id="filled-basic"
-                                        style={{padding: "20px"}}
-                                        onChange={(e) => setCity(e.target.value)}
-                                    />
-
-                                }
-                            </div>
-                        </List>
-                            <div>
-                                <Button style={{color: "white", padding: "10px 20px", backgroundColor: "#557C55"}} disabled={saveDisabled || !editForm} onClick={handleChangeData}>Save changes</Button>
-                                <Button style={{color: "#557C55"}} onClick={() => setEditForm(!editForm)}>Edit data</Button>
-                            </div>
-
-                        </>
-                        :
-                        <>
-                        Log in
-                        </>
-                    }
+                    {renderUserInfo()}
                 </div>
             }
         </div>

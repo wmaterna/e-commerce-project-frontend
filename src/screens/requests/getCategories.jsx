@@ -22,7 +22,4 @@ export const getCategories = (setLoading, setCategories, setProductList, setErro
             console.log(error);
             setLoading(false);
         })
-        .finally(() => {
-            // setLoading(false);
-        })
 }

@@ -1,6 +1,6 @@
 import {getUserInfo} from "./getUserInfo";
 
-export const updateUsersData = (name, street, city, apartment_no, post_code, token, setLoading, setUserInfo, setError) => {
+export const updateUsersData = (updatedData, token, setLoading, setUserInfo, setError) => {
 
     fetch(`/user`, {
         method: "PUT",
@@ -9,11 +9,11 @@ export const updateUsersData = (name, street, city, apartment_no, post_code, tok
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            name: name,
-            city: city,
-            street: street,
-            apartment_no: apartment_no,
-            post_code: post_code,
+            name: updatedData.name,
+            city: updatedData.city,
+            street: updatedData.street,
+            apartment_no: updatedData.apartment,
+            post_code: updatedData.postCode,
         })
     })
         .then((res) => {

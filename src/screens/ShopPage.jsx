@@ -14,7 +14,6 @@ const ShopPage = () => {
     const [, setError] = useState("");
     const [categories, setCategories] = useState("");
     const [prouctsList, setProductList] = useState("")
-    const [subcategoryItems, setSubcategoryItems] = useState({})
     const [detailProductOpen, setDetailProductOpen] = useState(false);
     const [currentId, setCurrentId] = useState("");
 
@@ -33,6 +32,71 @@ const ShopPage = () => {
        setDetailProductOpen(true)
     }
 
+    function getShopItems(){
+        if(categories.length !== 0 && prouctsList.length !== 0){
+            return(
+            <>
+                <Grid item xs={2}>
+                    <div className="sidebar">
+                        <h2>CATEGORIES</h2>
+                        {Object.keys(categories).map((category) => {
+                            console.log(categories[category])
+                            return(
+                                <div className="category-box">
+                                    <span style={{ my: 1.5, fontWeight: "bold", color: "black", fontSize: "1.1rem", padding: "10px 9px", textTransform: "uppercase"}}>{categories[category].name}</span>
+                                    <>
+                                        {categories[category].subcategory.map((subcat) => {
+                                            return (<Typography variant="body2" color="text.secondary">
+                                                <Button onClick={() => handleSubcategoryLaod(subcat.id)} sx={{ color: "black"}}>{subcat.name}</Button>
+                                            </Typography>)
+                                        })}
+                                    </>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </Grid>
+                <Grid  item xs={8} md={10}>
+                    <Grid container spacing={2} >
+                        {Object.keys(prouctsList).map((prodNo) => {
+                            return (
+                                <Grid item xs={4}>
+                                    <Card sx={{ maxWidth: 350}}>
+                                        <CardMedia
+                                            component="img"
+                                            height="300"
+                                            image={prouctsList[prodNo].url}
+                                            alt="green iguana"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="div">
+                                                <Button style={{textDecoration: "none", color: "black"}} onClick={() => handleProductDetail(prouctsList[prodNo].id)}>{prouctsList[prodNo].name}</Button>
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions style={{justifyContent: "space-between"}}>
+                                            <div>
+                                                <ShoppingBasketIcon style={{color: "black", padding: "30px 10px 0 10px"}} />
+                                                <Button sx={{ my: 2, color: "black", paddingBottom: "15px" }} size="small" onClick={() => addItem(prouctsList[prodNo])}>Add to Card</Button>
+                                            </div>
+                                            <Typography style={{padding: "0 15px"}} variant="h6" color="text.secondary">
+                                                {prouctsList[prodNo].price} $
+                                            </Typography>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            )
+                        })
+                        }
+                    </Grid>
+                </Grid>
+            </>)
+        }else{
+            return(<Grid>
+                Fetch data error
+            </Grid>)
+        }
+    }
+
 
     return(
         <Grid container style={{padding: "30px"}} spacing={2}>
@@ -41,72 +105,10 @@ const ShopPage = () => {
                 <div style={{margin: "auto"}}>
                     <CircularProgress />
                 </div>
-                        :
-                    <>
-                   {(categories.length !== 0 && prouctsList.length !== 0) ?
-                       <>
-                    <Grid item xs={2}>
-                        <div className="sidebar">
-                            <h2>CATEGORIES</h2>
-                            {Object.keys(categories).map((category) => {
-                                console.log(categories[category])
-                                return(
-                                    <div className="category-box">
-                                        <span style={{ my: 1.5, fontWeight: "bold", color: "black", fontSize: "1.1rem", padding: "10px 9px", textTransform: "uppercase"}}>{categories[category].name}</span>
-                                        <>
-                                            {categories[category].subcategory.map((subcat) => {
-                                                return (<Typography variant="body2" color="text.secondary">
-                                                    <Button onClick={() => handleSubcategoryLaod(subcat.id)} sx={{ color: "black"}}>{subcat.name}</Button>
-                                                </Typography>)
-                                            })}
-                                        </>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </Grid>
-                    <Grid  item xs={8} md={10}>
-                        <Grid container spacing={2} >
-                            {Object.keys(prouctsList).map((prodNo) => {
-                                    return (
-                                        <Grid item xs={4}>
-                                            <Card sx={{ maxWidth: 350}}>
-                                                <CardMedia
-                                                    component="img"
-                                                    height="300"
-                                                    image={prouctsList[prodNo].url}
-                                                    alt="green iguana"
-                                                />
-                                                <CardContent>
-                                                    <Typography gutterBottom variant="h5" component="div">
-                                                        <Button style={{textDecoration: "none", color: "black"}} onClick={() => handleProductDetail(prouctsList[prodNo].id)}>{prouctsList[prodNo].name}</Button>
-                                                    </Typography>
-                                                </CardContent>
-                                                <CardActions style={{justifyContent: "space-between"}}>
-                                                    <div>
-                                                    <ShoppingBasketIcon style={{color: "black", padding: "30px 10px 0 10px"}} />
-                                                    <Button sx={{ my: 2, color: "black", paddingBottom: "15px" }} size="small" onClick={() => addItem(prouctsList[prodNo])}>Add to Card</Button>
-                                                    </div>
-                                                    <Typography style={{padding: "0 15px"}} variant="h6" color="text.secondary">
-                                                        {prouctsList[prodNo].price} $
-                                                    </Typography>
-                                                </CardActions>
-                                            </Card>
-                                        </Grid>
-                                    )
-                                })
-                            }
-                        </Grid>
-                    </Grid>
-                           </>
-                       :
-                       <Grid>
-                       Loading ...
-                       </Grid>}
-            </>
-
-
-
+                :
+                <>
+                    {getShopItems()}
+                </>
  }
             <ProductDetail
                 drawerOpen={detailProductOpen}
