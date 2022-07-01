@@ -1,4 +1,4 @@
-export const postOrder = (token, date, price, address, basket , setLoading, setOrderId) => {
+export const postOrder = (token, date, price, address, basket , setLoading, setOrderId, setError) => {
     setLoading(true)
     fetch(`/order`, {
         method: "POST",
@@ -25,6 +25,7 @@ export const postOrder = (token, date, price, address, basket , setLoading, setO
             }
         })
         .catch((error) => {
+            setError(error)
         })
         .finally(() => {
             setLoading(false)

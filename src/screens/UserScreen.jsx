@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import {getUserInfo} from "./requests/getUserInfo";
-import Cookies from "js-cookie";
-import {CircularProgress, Button, Divider, IconButton, List, ListItem, TextField, Typography} from "@mui/material";
+import {CircularProgress, Button, Divider, List, ListItem, TextField, Typography} from "@mui/material";
 import {updateUsersData} from "./requests/updateUsersData";
 import {userStateContext} from "../components/contextComponents/userContext";
 import {useNavigate} from "react-router-dom";
@@ -11,7 +10,7 @@ export default function UserScreen() {
     const navigate = useNavigate();
     const {token} = useContext(userStateContext);
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState("");
+    const [, setError] = useState("");
     const [userInfo, setUserInfo] = useState(undefined);
     const [editForm, setEditForm] = useState(false)
     const [street, setStreet] = useState("");

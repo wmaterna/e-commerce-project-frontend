@@ -1,21 +1,10 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React from 'react';
 import "./HomePage.css";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {getUserInfo} from "./requests/getUserInfo";
-import {userStateContext} from "../components/contextComponents/userContext";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
 const HomePage = () => {
     const navigete = useNavigate()
-    const {token, logOut} = useContext(userStateContext)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState("");
-    const [userInfo, setUserInfo] = useState("");
-
-    useEffect(() => {
-        getUserInfo(setLoading, setUserInfo, token, setError)
-    },[]);
 
 
     return(

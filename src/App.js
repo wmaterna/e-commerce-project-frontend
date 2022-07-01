@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from "react";
+import React from "react";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import HomePage from "./screens/HomePage";
@@ -13,9 +13,6 @@ import Orders from "./screens/Orders";
 
 
 function App() {
-
-    const [cart, setCart] = useState(null);
-    const value = useMemo(() => ({ cart, setCart }), [cart, setCart]);
 
   return (
           <div>

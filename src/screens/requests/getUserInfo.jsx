@@ -18,6 +18,7 @@ export const getUserInfo = (setLoading, setUserInfo, token, setError) => {
             }
         })
         .catch((error) => {
+            setError(error)
         })
         .finally(() => {
             setLoading(false);

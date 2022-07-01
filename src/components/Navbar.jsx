@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import "./Navbar.css";
 import {useNavigate} from "react-router-dom";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import Cookies from "js-cookie";
 import {userStateContext} from "./contextComponents/userContext";
 
 

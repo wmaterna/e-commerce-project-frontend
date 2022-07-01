@@ -1,29 +1,20 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {getProducts} from "./requests/getProducts";
 import {CardMedia, CardActions, Button, Grid, Card, CardContent, Typography, CircularProgress} from "@mui/material";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-// import { useCart, useDispatchCart } from "../components/contextComponents/Cart";
 import "./Shop.css"
 import {getCategories} from "./requests/getCategories";
 import {getSubcategoryItems} from "./requests/getSubcategoryItems";
-import {getCategoryItems} from "./requests/getCategoryItems";
-import {useNavigate} from "react-router-dom";
 import ProductDetail from "./ProductDetail";
 import {CartStateContext} from "../components/contextComponents/Cart";
 
 
 const ShopPage = () => {
     const {addItem} = useContext(CartStateContext)
-    const navigate = useNavigate();
-    const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [, setError] = useState("");
     const [categories, setCategories] = useState("");
-    const [subcategories, setSubcategories] = useState({})
     const [prouctsList, setProductList] = useState("")
-    const [categoriesItems, setCategoriesItems] = useState({})
     const [subcategoryItems, setSubcategoryItems] = useState({})
-    const [currentSubcategory, setCurrentSubcategory] = useState("");
     const [detailProductOpen, setDetailProductOpen] = useState(false);
     const [currentId, setCurrentId] = useState("");
 
@@ -76,7 +67,7 @@ const ShopPage = () => {
                     </Grid>
                     <Grid  item xs={8} md={10}>
                         <Grid container spacing={2} >
-                            {Object.keys(prouctsList).map((prodNo, index) => {
+                            {Object.keys(prouctsList).map((prodNo) => {
                                     return (
                                         <Grid item xs={4}>
                                             <Card sx={{ maxWidth: 350}}>
@@ -89,9 +80,6 @@ const ShopPage = () => {
                                                 <CardContent>
                                                     <Typography gutterBottom variant="h5" component="div">
                                                         <Button style={{textDecoration: "none", color: "black"}} onClick={() => handleProductDetail(prouctsList[prodNo].id)}>{prouctsList[prodNo].name}</Button>
-                                                    </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        {currentSubcategory}
                                                     </Typography>
                                                 </CardContent>
                                                 <CardActions style={{justifyContent: "space-between"}}>

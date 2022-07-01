@@ -1,5 +1,4 @@
-import React, {useReducer, useContext, createContext, useState, useEffect} from "react";
-import Cookies from "js-cookie";
+import React, {createContext, useState, useEffect} from "react";
 
 
 const defaultValue = {

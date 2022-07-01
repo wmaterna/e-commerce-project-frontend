@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {getOrders} from "./requests/getOrders";
-import Cookies from "js-cookie";
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import {Alert, CircularProgress} from "@mui/material";
@@ -38,6 +37,29 @@ const Orders = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    function getOrdersGrid(){
+        if(loading){
+            return (<CircularProgress />)
+        } else {
+            if(orderDetails.length !== 0){
+                return (
+                    <Box sx={{ height: 600, width: '100%' }}>
+                        <DataGrid
+                            rows={orderDetails}
+                            columns={columns}
+                            pageSize={10}
+                            rowsPerPageOptions={[5]}
+                        />
+                    </Box>
+                )
+            } else{
+                return(<span>
+                            No orders to display
+                        </span>)
+            }
+        }
+    }
+
     useEffect(() => {
         if(token == undefined){
             navigate("/login");
@@ -55,27 +77,7 @@ const Orders = () => {
                     <Alert severity="warning">{error}</Alert>
                 }
             </>
-            {
-                loading ?
-                    <CircularProgress />
-                    :<>
-                    { orderDetails.length !== 0 ?
-                            <Box sx={{ height: 600, width: '100%' }}>
-                            <DataGrid
-                            rows={orderDetails}
-                            columns={columns}
-                            pageSize={10}
-                            rowsPerPageOptions={[5]}
-                            />
-                            </Box>
-                        :
-                        <span>
-                            No orders to display
-                        </span>
-                    }
-                    </>
-
-            }
+            {getOrdersGrid()}
         </div>
     )
 }

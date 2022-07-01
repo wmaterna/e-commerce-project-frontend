@@ -22,10 +22,12 @@ export const addReview = (token, content, productId, setLoading, setProductInfo,
             if( responseCode === 200) {
                 getProductDetail(productId, setLoading, setProductInfo, setOpinions, setError)
                 getUserInfo(setLoading, setUserInfo, token, setError)
+            } else{
+                setLoading(false)
             }
         })
         .catch((error) => {
-        })
-        .finally(() => {
+            setError(error)
+            setLoading(false)
         })
 }

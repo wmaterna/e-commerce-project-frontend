@@ -10,14 +10,11 @@ import {userStateContext} from "../components/contextComponents/userContext";
 
 export default function PaymentDetails(){
 
-    const navigete = useNavigate()
-    const {token, logOut} = useContext(userStateContext)
+    const {token} = useContext(userStateContext)
     const [loading, setLoading] = useState(false)
     const [orderId, setOrderId] = useState("");
-    const [date, setDate] = useState("");
     const [userDetails, setUserDetails] = useState([]);
-    const [error, setError] = useState("");
-    const [address, setAddress] = useState("")
+    const [, setError] = useState("");
     const navigate = useNavigate();
     const {total} = useContext(CartStateContext);
     const {items} = useContext(CartStateContext);
@@ -37,7 +34,7 @@ export default function PaymentDetails(){
             const address = userDetails.city + " " + userDetails.street + " " + userDetails.post_code + " " +userDetails.apartment_no;
             const current = new Date();
             const date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()}`;
-            postOrder(token, date, total.toFixed(2), address, items, setLoading, setOrderId)
+            postOrder(token, date, total.toFixed(2), address, items, setLoading, setOrderId, setError)
         }
     },[userDetails]);
 

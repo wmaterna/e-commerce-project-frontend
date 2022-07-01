@@ -20,6 +20,7 @@ export const getOrders = (token, setOrderDetails, setLoading, setError) => {
             }
         })
         .catch((error) => {
+            setError(error)
         })
         .finally(() => {
             setLoading(false)

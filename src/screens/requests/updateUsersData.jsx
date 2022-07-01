@@ -26,7 +26,9 @@ export const updateUsersData = (name, street, city, apartment_no, post_code, tok
             }
         })
         .catch((error) => {
+            setError(error)
         })
         .finally(() => {
+            setLoading(false)
         })
 }
