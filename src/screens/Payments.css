@@ -4,7 +4,6 @@
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
-    display: flex;
     justify-content: center;
     align-content: center;
     height: 100vh;
@@ -34,7 +33,6 @@
     margin-bottom: 24px;
 }
 
- Buttons and links
 .stripe-btn {
     background: #5469d4;
     font-family: Arial, sans-serif;
