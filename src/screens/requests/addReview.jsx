@@ -15,7 +15,6 @@ export const addReview = (token, opinion, setLoading, setProductInfo, setOpinion
         }),
     })
         .then((res) => {
-            const data = res.json();
             const responseCode = res.status;
             return Promise.all([responseCode])
         })
