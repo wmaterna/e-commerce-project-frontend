@@ -1,8 +1,8 @@
 import {getProductDetail} from "./getProductDetail";
 import {getUserInfo} from "./getUserInfo";
 
-export const deleteReview = (opinionId, token, productId, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
-    fetch(`/opinion/${opinionId}`, {
+export const deleteReview = (token, opinion, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
+    fetch(`/opinion/${opinion.opinionId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -13,12 +13,10 @@ export const deleteReview = (opinionId, token, productId, setLoading, setProduct
             const responseCode = res.status;
             return Promise.all([responseCode])
         })
-        .then(([responseCode, data]) => {
+        .then(([responseCode]) => {
             if( responseCode === 200) {
-                getProductDetail(productId, setLoading, setProductInfo, setOpinions, setError)
+                getProductDetail(opinion.productId, setLoading, setProductInfo, setOpinions, setError)
                 getUserInfo(setLoading, setUserInfo, token, setError)
-            }else{
-                setLoading(false)
             }
         })
         .catch((error) => {

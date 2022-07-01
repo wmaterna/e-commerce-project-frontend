@@ -1,4 +1,4 @@
-export const postOrder = (token, date, price, address, basket , setLoading, setOrderId, setError) => {
+export const postOrder = (token, order , setLoading, setOrderId, setError) => {
     setLoading(true)
     fetch(`/order`, {
         method: "POST",
@@ -7,10 +7,10 @@ export const postOrder = (token, date, price, address, basket , setLoading, setO
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            date: date,
-            price: price,
-            address: address,
-            products: basket,
+            date: order.date,
+            price: order.price,
+            address: order.address,
+            products: order.basket,
         })
     })
         .then((res) => {

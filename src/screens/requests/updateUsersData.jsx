@@ -20,7 +20,7 @@ export const updateUsersData = (updatedData, token, setLoading, setUserInfo, set
             const responseCode = res.status;
             return Promise.all([responseCode])
         })
-        .then(([responseCode, data]) => {
+        .then(([responseCode]) => {
             if( responseCode === 200) {
                 getUserInfo(setLoading, setUserInfo, token, setError)
             }

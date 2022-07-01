@@ -4,7 +4,6 @@ import {
     CardActions,
     Button,
     Grid,
-    Card,
     CardContent,
     Typography,
     Drawer,
@@ -59,14 +58,22 @@ console.log(props.id)
 
 
     const handleRemoveOpinion = () => {
-        deleteReview(opinionId, token, productInfo.id, setLoading, setProductInfo, setOpinions,setError, setUserInfo)
+        const opinion = {
+            opinionId: opinionId,
+            productId: productInfo.id
+        }
+        deleteReview(token, opinion, setLoading, setProductInfo, setOpinions,setError, setUserInfo)
         setOpinionId(undefined)
         setRemoveDialogOpen(false)
     }
 
 
     const handleAddReview = () => {
-        addReview(token,reviewContent, productInfo.id, setLoading, setProductInfo, setOpinions,setError, setUserInfo);
+        const opinion = {
+            productId: productInfo.id,
+            content: reviewContent
+        }
+        addReview(token, opinion, setLoading, setProductInfo, setOpinions,setError, setUserInfo);
         setShowForm(false);
     }
 

@@ -34,7 +34,13 @@ export default function PaymentDetails(){
             const address = userDetails.city + " " + userDetails.street + " " + userDetails.post_code + " " +userDetails.apartment_no;
             const current = new Date();
             const date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()}`;
-            postOrder(token, date, total.toFixed(2), address, items, setLoading, setOrderId, setError)
+            const order = {
+                date: date,
+                price: total.toFixed(2),
+                address: address,
+                basket: items
+            }
+            postOrder(token, order, setLoading, setOrderId, setError)
         }
     },[userDetails]);
 

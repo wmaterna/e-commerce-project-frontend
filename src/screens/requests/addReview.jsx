@@ -1,7 +1,8 @@
 import {getProductDetail} from "./getProductDetail";
 import {getUserInfo} from "./getUserInfo";
 
-export const addReview = (token, content, productId, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
+
+export const addReview = (token, opinion, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
     fetch(`/opinion`, {
         method: "POST",
         headers: {
@@ -9,19 +10,18 @@ export const addReview = (token, content, productId, setLoading, setProductInfo,
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            product: productId,
-            content: content
+            product: opinion.productId,
+            content: opinion.content
         }),
     })
         .then((res) => {
             const data = res.json();
             const responseCode = res.status;
-            return Promise.all([responseCode, data])
+            return Promise.all([responseCode])
         })
-        .then(([responseCode, data]) => {
+        .then(([responseCode]) => {
             if( responseCode === 200) {
-                console.log(data)
-                getProductDetail(productId, setLoading, setProductInfo, setOpinions, setError)
+                getProductDetail(opinion.productId, setLoading, setProductInfo, setOpinions, setError)
                 getUserInfo(setLoading, setUserInfo, token, setError)
             } else{
                 setLoading(false)
