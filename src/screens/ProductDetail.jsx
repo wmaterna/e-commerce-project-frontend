@@ -89,7 +89,7 @@ console.log(props.id)
                         </Grid>
                         <Grid item xs={2}>
                             {(!showForm && token != undefined) &&
-                                <Button onClick={()=>setShowForm(true)} size="small" style={{color: "black", paddingBottom: "15px"}}>Add review</Button>
+                                <Button data-test-id="showAddForm" onClick={()=>setShowForm(true)} size="small" style={{color: "white", paddingBottom: "15px"}}>Add review</Button>
                             }  </Grid>
                     </Grid>
 
@@ -101,14 +101,14 @@ console.log(props.id)
                                     id="panel1a-header"
                                 >
                                     <div style={{display: "flex", width: "100%", justifyContent: "space-between" }}>
-                                        <Typography style={{paddingTop: "10px" }} gutterBottom  component="div">
+                                        <Typography data-test-id="opinionToggle" style={{paddingTop: "10px" }} gutterBottom  component="div">
                                             {opinions[opinion].user[0].name}
                                         </Typography>
                                         <>
                                             {userInfo !== undefined &&
                                                 <>
                                                     {opinions[opinion].user[0].id === userInfo.id &&
-                                                        <IconButton style={{paddingBottom: "20px"}} aria-label="delete" onClick={() => {{
+                                                        <IconButton data-test-id="binBtn" style={{paddingBottom: "20px"}} aria-label="delete" onClick={() => {{
                                                             setRemoveDialogOpen(true);
                                                             setOpinionId(opinions[opinion].id)
                                                         }
@@ -121,7 +121,7 @@ console.log(props.id)
                                     </div>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography gutterBottom variant="body2" component="div">
+                                    <Typography className="opinionContent" gutterBottom variant="body2" component="div">
                                         {opinions[opinion].content}
                                     </Typography>
                                 </AccordionDetails>
@@ -140,6 +140,7 @@ console.log(props.id)
                     <Grid item xs={2}>
                         {(!showForm && token != undefined) &&
                             <Button disabled={token == undefined}
+                                    data-test-id="addYourOpinion"
                                     onClick={() => setShowForm(true)}
                                     size="small"
                                     style={{
@@ -157,8 +158,9 @@ console.log(props.id)
             return(
                 <div>
                     <Grid container sx={{ minWidth: 150, maxWidth: 1000}}>
-                        <Grid item xs={4} style={{padding: "50px"}}>
+                        <Grid className="productImg" item xs={4} style={{padding: "50px"}}>
                             <CardMedia
+                                className="productImg"
                                 component="img"
                                 height="500"
                                 image={productInfo.url}
@@ -167,19 +169,19 @@ console.log(props.id)
                         </Grid>
                         <Grid item xs={8} style={{padding: "50px"}}>
                             <CardContent>
-                                <Typography gutterBottom variant="h4" component="div">
+                                <Typography className="productTitle" gutterBottom variant="h4" component="div">
                                     {productInfo.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary" style={{padding: "30px 0"}}>
+                                <Typography className="productDescription" variant="body2" color="text.secondary" style={{padding: "30px 0"}}>
                                     {productInfo.description}
                                 </Typography>
                             </CardContent>
                             <Grid container justifyContent="flex-end" style={{padding: "0 10px"}} >
                                 <CardActions style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
-                                    <Typography style={{padding: "0"}} variant="h6" color="text.secondary">
+                                    <Typography className="productPrice" style={{padding: "0"}} variant="h6" color="text.secondary">
                                         <b>Price: </b>{productInfo.price} $
                                     </Typography>
-                                    <Button onClick={() => {
+                                    <Button data-test-id="addToCartDetailBtn" onClick={() => {
                                         addItem(productInfo);
                                         props.onClose();
                                     }}
@@ -196,6 +198,7 @@ console.log(props.id)
                                                 Let us know what you think
                                             </Typography>
                                             <TextField
+                                                data-test-id="opinionTextInput"
                                                 fullWidth
                                                 id="outlined-multiline-static"
                                                 label="Review"
@@ -204,10 +207,10 @@ console.log(props.id)
                                                 onChange={(e) => setReviewContent(e.target.value)}
                                             />
                                             <Grid style={{padding: "20px"}}>
-                                                <Button onClick={handleAddReview} variant="contained" style={{color: "black", padding: "10px", marginRight: "20px"}}>
+                                                <Button data-test-id="addOpinionBtn" onClick={handleAddReview} variant="contained" style={{backgroundColor: "#557C55", color: "white", padding: "10px", marginRight: "20px"}}>
                                                     Add
                                                 </Button>
-                                                <Button onClick={() => setShowForm(false)} variant="outlined" style={{color: "black", padding: "10px"}}>
+                                                <Button data-test-id="cancelOpinionBtn" onClick={() => setShowForm(false)} variant="outlined" style={{color: "black", padding: "10px"}}>
                                                     Cancel
                                                 </Button>
                                             </Grid>
@@ -251,10 +254,10 @@ console.log(props.id)
                 </Typography>
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={handleRemoveOpinion}>
+                <Button data-test-id="removeOpinion" autoFocus onClick={handleRemoveOpinion}>
                     Remove
                 </Button>
-                <Button autoFocus onClick={() => {{
+                <Button data-test-id="cancelRemoveOpinion" autoFocus onClick={() => {{
                     setOpinionId(undefined);
                     setRemoveDialogOpen(false)
                 }}}>

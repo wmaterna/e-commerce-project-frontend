@@ -31,7 +31,7 @@ export default function PaymentDetails(){
 
     useEffect(() => {
         if(userDetails.length !== 0){
-            const address = userDetails.city + " " + userDetails.street + " " + userDetails.post_code + " " +userDetails.apartment_no;
+            const address = userDetails.city + " " + userDetails.street + " " + userDetails.postCode + " " +userDetails.apartmentNo;
             const current = new Date();
             const date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()}`;
             const order = {

@@ -121,6 +121,7 @@ export default function UserScreen() {
                         <div>
                             {editForm &&
                                 <TextField
+                                    data-test-id="streetInput"
                                     id="filled-basic"
                                     style={{padding: "20px"}}
                                     onChange={(e) => setStreet(e.target.value)}
@@ -129,10 +130,11 @@ export default function UserScreen() {
                             }
                         </div>
 
-                        {getListItem(userInfo.apartment_no, "Apartment Number")}
+                        {getListItem(userInfo.apartmentNo, "Apartment Number")}
                         <div>
                             {editForm &&
                                 <TextField
+                                    data-test-id="apartmentInput"
                                     id="filled-basic"
                                     style={{padding: "20px"}}
                                     onChange={(e) => setApartment(e.target.value)}
@@ -140,10 +142,11 @@ export default function UserScreen() {
 
                             }
                         </div>
-                        {getListItem(userInfo.post_code, "Post code")}
+                        {getListItem(userInfo.postCode, "Post code")}
                         <div>
                             {editForm &&
                                 <TextField
+                                    data-test-id="postCodeInput"
                                     id="filled-basic"
                                     style={{padding: "20px"}}
                                     onChange={(e) => setPostCode(e.target.value)}
@@ -155,6 +158,7 @@ export default function UserScreen() {
                         <div>
                             {editForm &&
                                 <TextField
+                                    data-test-id="cityInput"
                                     id="filled-basic"
                                     style={{padding: "20px"}}
                                     onChange={(e) => setCity(e.target.value)}
@@ -164,8 +168,8 @@ export default function UserScreen() {
                         </div>
                     </List>
                     <div>
-                        <Button style={{color: "white", padding: "10px 20px", backgroundColor: "#557C55"}} disabled={saveDisabled || !editForm} onClick={handleChangeData}>Save changes</Button>
-                        <Button style={{color: "#557C55"}} onClick={() => setEditForm(!editForm)}>Edit data</Button>
+                        <Button data-test-id="saveFromBtn" style={{color: "white", padding: "10px 20px", backgroundColor: "#557C55"}} disabled={saveDisabled || !editForm} onClick={handleChangeData}>Save changes</Button>
+                        <Button data-test-id="editFormBtn" style={{color: "#557C55"}} onClick={() => setEditForm(!editForm)}>Edit data</Button>
                     </div>
 
                 </>

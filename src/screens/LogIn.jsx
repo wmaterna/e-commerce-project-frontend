@@ -21,8 +21,8 @@ function LogIn() {
                     PLANTS
                 </div>
             </div>
-            <p><button className="login-with" onClick={() => handleLogin("/login-google")}><GoogleIcon style={{color: "black"}}/><span>Login Google</span></button></p>
-            <p><button className="login-with" onClick={() => handleLogin("/login-github")}><GitHubIcon style={{color: "black"}}/><span>Login GitHub</span></button></p>
+            <p><button className="login-with" data-test-id="google-login" onClick={() => handleLogin("/login-google")}><GoogleIcon style={{color: "black"}}/><span>Login Google</span></button></p>
+            <p><button className="login-with" data-test-id="github-login" onClick={() => handleLogin("/login-github")}><GitHubIcon style={{color: "black"}}/><span>Login GitHub</span></button></p>
         </div>
         </div>
     );

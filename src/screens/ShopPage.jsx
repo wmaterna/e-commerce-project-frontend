@@ -18,7 +18,6 @@ const ShopPage = () => {
     const [currentId, setCurrentId] = useState("");
 
 
-
     useEffect(() => {
         getCategories(setLoading, setCategories, setProductList, setError)
     },[]);
@@ -47,7 +46,7 @@ const ShopPage = () => {
                                     <>
                                         {categories[category].subcategory.map((subcat) => {
                                             return (<Typography variant="body2" color="text.secondary">
-                                                <Button onClick={() => handleSubcategoryLaod(subcat.id)} sx={{ color: "black"}}>{subcat.name}</Button>
+                                                <Button data-test-id="subcategoryBtn" onClick={() => handleSubcategoryLaod(subcat.id)} sx={{ color: "black"}}>{subcat.name}</Button>
                                             </Typography>)
                                         })}
                                     </>
@@ -57,11 +56,11 @@ const ShopPage = () => {
                     </div>
                 </Grid>
                 <Grid  item xs={8} md={10}>
-                    <Grid container spacing={2} >
+                    <Grid container spacing={2} id="productsContainer">
                         {Object.keys(prouctsList).map((prodNo) => {
                             return (
                                 <Grid item xs={4}>
-                                    <Card sx={{ maxWidth: 350}}>
+                                    <Card className='productCard' sx={{ maxWidth: 350}}>
                                         <CardMedia
                                             component="img"
                                             height="300"
@@ -70,13 +69,13 @@ const ShopPage = () => {
                                         />
                                         <CardContent>
                                             <Typography gutterBottom variant="h5" component="div">
-                                                <Button style={{textDecoration: "none", color: "black"}} onClick={() => handleProductDetail(prouctsList[prodNo].id)}>{prouctsList[prodNo].name}</Button>
+                                                <Button data-test-id="productDetailBtn" style={{textDecoration: "none", color: "black"}} onClick={() => handleProductDetail(prouctsList[prodNo].id)}>{prouctsList[prodNo].name}</Button>
                                             </Typography>
                                         </CardContent>
                                         <CardActions style={{justifyContent: "space-between"}}>
                                             <div>
                                                 <ShoppingBasketIcon style={{color: "black", padding: "30px 10px 0 10px"}} />
-                                                <Button sx={{ my: 2, color: "black", paddingBottom: "15px" }} size="small" onClick={() => addItem(prouctsList[prodNo])}>Add to Card</Button>
+                                                <Button data-test-id="addToCartBtn" sx={{ my: 2, color: "black", paddingBottom: "15px" }} size="small" onClick={() => addItem(prouctsList[prodNo])}>Add to Cart</Button>
                                             </div>
                                             <Typography style={{padding: "0 15px"}} variant="h6" color="text.secondary">
                                                 {prouctsList[prodNo].price} $

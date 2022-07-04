@@ -19,7 +19,7 @@ export default function PreOrderInfo(){
 
     function getUserFrom(){
         if(!validData){
-            return (<Button onClick={() => navigate("/user/info")}>Fill the address data</Button>)
+            return (<Button data-test-id="fillUserData" onClick={() => navigate("/user/info")}>Fill the address data</Button>)
         } else {
             return (<Grid style={{padding: "30px 80px"}}>
                         <Typography variant="h4" component="h4" style={{padding: "10px 0"}}>
@@ -40,22 +40,22 @@ export default function PreOrderInfo(){
                             Street and apartment
                         </Typography>
                         <Typography variant="p" component="p">
-                            {userInfo.street} {userInfo.apartment_no}
+                            {userInfo.street} {userInfo.apartmentNo}
                         </Typography>
                         <Divider style={{padding: "10px"}}/>
                         <Typography variant="h6" component="h6" style={{padding: "10px 0"}}>
                             Post code
                         </Typography>
                         <Typography variant="p" component="p">
-                            {userInfo.post_code}
+                            {userInfo.postCode}
                         </Typography>
                         <Divider style={{padding: "10px"}} />
                         <Typography variant="h6" component="h6" style={{padding: "10px 0"}}>
                             Total: {total.toFixed(2)}
                         </Typography>
                         <div style={{display: "flex", justifyContent: "flex-end"}}>
-                            <Button style={{color: "#557C55"}} onClick={() => navigate("/user/info")}>Not correct data? </Button>
-                            <Button style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" size="small" onClick={() => navigate("/payments")}>Pay by credit card</Button>
+                            <Button data-test-id="fillUserData" style={{color: "#557C55"}} onClick={() => navigate("/user/info")}>Not correct data? </Button>
+                            <Button data-test-id="navigatePayBtn" style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" size="small" onClick={() => navigate("/payments")}>Pay by credit card</Button>
                         </div>
                     </Grid>)
         }
@@ -85,7 +85,7 @@ export default function PreOrderInfo(){
     },[]);
 
     useEffect(() => {
-        if(userInfo.city !== undefined && userInfo.apartment_no !== undefined && userInfo.street !== undefined && userInfo.post_code !== undefined){
+        if(userInfo.city !== undefined && userInfo.apartmentNo !== undefined && userInfo.street !== undefined && userInfo.postCode !== undefined){
             setValidData(true)
         }else{
             setValidData(false)

@@ -28,7 +28,7 @@ const CartPage = () => {
                     items.map((prod, index) => {
                             return (
                                 <>
-                                    <ListItem id={index} alignItems="flex-start"
+                                    <ListItem id={index} className="basketItem" alignItems="flex-start"
                                               style={{padding: "20px"}}
                                               secondaryAction={
                                         <>
@@ -94,9 +94,9 @@ const CartPage = () => {
                     {items.length !== 0 &&
                         <>{
                         token ?
-                            <Button style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" className="greenBtn" size="small" onClick={() => navigate("/pre-order-info")}>Order details</Button>
+                            <Button data-test-id="payBtn" style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" className="greenBtn" size="small" onClick={() => navigate("/pre-order-info")}>Order details</Button>
                             :
-                            <Button style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" size="small" onClick={() => navigate("/login")}>Log in</Button>
+                            <Button data-test-id="payBtn" style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" size="small" onClick={() => navigate("/login")}>Log in</Button>
                         }
                         </>
 

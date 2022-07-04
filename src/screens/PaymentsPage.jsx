@@ -12,9 +12,8 @@ const PaymentsPage = () => {
 
     const navigate = useNavigate()
     const {total} = useContext(CartStateContext);
-    const {token} = useContext(userStateContext)
-    const PUBLIC_KEY="pk_test_51LEfgGA2jOCNBtA0gPI2ap5RGcgevQgTrAGbQdiuGRexPev2ZAPEH0r3zLb3Glc4Y86kWeQa2DA8iz8Bp99syda700E04NyHbX";
-    const stripeTestPromise = loadStripe(PUBLIC_KEY)
+    const {token} = useContext(userStateContext);
+    const stripeTestPromise = loadStripe(process.env.REACT_APP_PUBLIC_KEY);
     const [clientSecret, setClientSecret] = useState("");
 
     useEffect(() => {

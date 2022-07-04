@@ -45,36 +45,30 @@ const Navbar = () => {
                             <Button  style={{color: btnColor}} sx={{ my: 2,fontWeight: "bold" }} onClick={() => handleChangeLocation("/shop")}>
                                 Shop
                             </Button>
-                            {/*<Button  style={{color: btnColor}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/blog")}>*/}
-                            {/*    Blog*/}
-                            {/*</Button>*/}
-                            {/*<Button style={{color: btnColor, zIndex: "10"}} sx={{ my: 2, fontWeight: "bold"}} onClick={() => handleChangeLocation("/about-us")}>*/}
-                            {/*    About Us*/}
-                            {/*</Button>*/}
                         </Box>
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
 
                             {token == undefined ?
-                                <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/login")}>
+                                <Button  data-test-id="login-btn" sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/login")}>
                                     Log In
                                 </Button>
                                 :
                                 <>
-                                <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/user/info")}>
+                                <Button  data-test-id="userProfile" sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/user/info")}>
                                     User profile
                                 </Button>
-                                    <Button  sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/orders")}>
+                                    <Button  data-test-id="userOrders" sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/orders")}>
                                         Orders
                                     </Button>
-                                <Button  sx={{ my: 2, color: "black" }} onClick={() => logOut()}>
+                                <Button data-test-id="logout" sx={{ my: 2, color: "black" }} onClick={() => logOut()}>
                                     Log Out
                                 </Button>
                                 </>
                             }
 
 
-                        <Button sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/card")}>
+                        <Button data-test-id="cartBtn" sx={{ my: 2, color: "black" }} onClick={() => handleChangeLocation("/card")}>
                             <ShoppingBasketIcon style={{color: "black", padding: "10px"}} />
                             Cart
                         </Button>

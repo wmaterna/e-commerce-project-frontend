@@ -12,8 +12,8 @@ export const updateUsersData = (updatedData, token, setLoading, setUserInfo, set
             name: updatedData.name,
             city: updatedData.city,
             street: updatedData.street,
-            apartment_no: updatedData.apartment,
-            post_code: updatedData.postCode,
+            apartmentNo: updatedData.apartment,
+            postCode: updatedData.postCode,
         })
     })
         .then((res) => {
