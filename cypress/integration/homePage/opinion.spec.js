@@ -32,7 +32,7 @@ describe('Opinion functionality', () => {
     })
 
     it('should try delete opinion and cancel', () => {
-        cy.setCookie('jwt-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9%2EeyJhdWQiOiJodHRwOi8vMC4wLjAuMDozXFxcXD04MDgwL2hlbGxvMiIsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjNcXFxcPTgwODAiLCJpZCI6IjExMTY3OTkzMTM5ODcxMjg5MjAyMiIsImV4cCI6MTY1Njg3MDUwNn0%2EonfUOOaziFcBeaSm%5FPOQptNf%5FBVJ1WYskDVIr2WaL94')
+        cy.setCookie('jwt-token', Cypress.env('TEST_TOKEN'))
         cy.visit('/shop')
         cy.get('button[data-test-id=productDetailBtn]').first().click()
         cy.get('button[data-test-id=binBtn]').first().click()
@@ -40,7 +40,7 @@ describe('Opinion functionality', () => {
     })
 
     it('should delete opinion', () => {
-        cy.setCookie('jwt-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9%2EeyJhdWQiOiJodHRwOi8vMC4wLjAuMDozXFxcXD04MDgwL2hlbGxvMiIsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjNcXFxcPTgwODAiLCJpZCI6IjExMTY3OTkzMTM5ODcxMjg5MjAyMiIsImV4cCI6MTY1Njg3MDUwNn0%2EonfUOOaziFcBeaSm%5FPOQptNf%5FBVJ1WYskDVIr2WaL94')
+        cy.setCookie('jwt-token', Cypress.env('TEST_TOKEN'))
         cy.visit('/shop')
         cy.get('button[data-test-id=productDetailBtn]').first().click()
         cy.get('button[data-test-id=binBtn]').first().click()

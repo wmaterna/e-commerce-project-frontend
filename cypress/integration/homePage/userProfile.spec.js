@@ -3,7 +3,7 @@ describe('User Profile flow', () => {
         cy.clearCookies()
     })
     it('check if save disabled when no data', () => {
-        cy.setCookie('jwt-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9%2EeyJhdWQiOiJodHRwOi8vMC4wLjAuMDozXFxcXD04MDgwL2hlbGxvMiIsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjNcXFxcPTgwODAiLCJpZCI6IjExMTY3OTkzMTM5ODcxMjg5MjAyMiIsImV4cCI6MTY1Njg3NTkzNH0%2EEXRlxVtXspJSCEqrj3crH%5FWIsqDKSFN%5F5b2TUOPo7eA')
+        cy.setCookie('jwt-token', Cypress.env('TEST_TOKEN'))
         cy.visit('/')
         cy.get('button[data-test-id=userProfile]').click()
         cy.url().should('include', '/user/info')
@@ -12,7 +12,7 @@ describe('User Profile flow', () => {
     })
 
     it('test enable save button and add save new data', () => {
-        cy.setCookie('jwt-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9%2EeyJhdWQiOiJodHRwOi8vMC4wLjAuMDozXFxcXD04MDgwL2hlbGxvMiIsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjNcXFxcPTgwODAiLCJpZCI6IjExMTY3OTkzMTM5ODcxMjg5MjAyMiIsImV4cCI6MTY1Njg3NTkzNH0%2EEXRlxVtXspJSCEqrj3crH%5FWIsqDKSFN%5F5b2TUOPo7eA')
+        cy.setCookie('jwt-token',  Cypress.env('TEST_TOKEN'))
         cy.visit('/')
         cy.get('button[data-test-id=userProfile]').click()
         cy.url().should('include', '/user/info')

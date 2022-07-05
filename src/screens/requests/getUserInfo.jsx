@@ -14,7 +14,8 @@ export const getUserInfo = (setLoading, setUserInfo, token, setError) => {
             if( responseCode === 200) {
                 setUserInfo(data[0])
             }else{
-                setUserInfo(undefined)
+                setUserInfo([])
+                setError("error fetching user - user unauth")
             }
         })
         .catch((error) => {

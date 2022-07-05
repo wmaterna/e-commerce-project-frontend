@@ -40,14 +40,14 @@ const CartPage = () => {
                                                     >
                                                         {prod.quantity * prod.product.price}
                                                     </Typography>
-                                                <IconButton edge="end" aria-label="delete" onClick={() => addItem(prod.product)}>
+                                                <IconButton data-test-id="plusBtn" edge="end" aria-label="delete" onClick={() => addItem(prod.product)}>
                                                     <AddIcon />
                                                 </IconButton>
                                                 <span style={{padding: "0 5px 0 15px"}}>{prod.quantity}</span>
-                                                <IconButton edge="end" aria-label="delete" onClick={() => removeItem(prod.product.id, false, prod.product.price)}>
+                                                <IconButton data-test-id="minusBtn" edge="end" aria-label="delete" onClick={() => removeItem(prod.product.id, false, prod.product.price)}>
                                                     <RemoveIcon />
                                                 </IconButton>
-                                                  <IconButton style={{padding: "20px"}} edge="end" aria-label="delete" onClick={() => removeItem(prod.product.id, true, prod.product.price*prod.quantity)}>
+                                                  <IconButton data-test-id="deleteFromBinBtn" style={{padding: "20px"}} edge="end" aria-label="delete" onClick={() => removeItem(prod.product.id, true, prod.product.price*prod.quantity)}>
                                                       <DeleteIcon />
                                                   </IconButton>
                                         </>

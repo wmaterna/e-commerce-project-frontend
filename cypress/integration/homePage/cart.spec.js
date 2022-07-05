@@ -18,7 +18,7 @@ describe('Shop component with adding to cart', () => {
     })
 
     it('should move to address details if user login', () => {
-        cy.setCookie('jwt-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9%2EeyJhdWQiOiJodHRwOi8vMC4wLjAuMDozXFxcXD04MDgwL2hlbGxvMiIsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjNcXFxcPTgwODAiLCJpZCI6IjExMTY3OTkzMTM5ODcxMjg5MjAyMiIsImV4cCI6MTY1Njg2NTc2M30%2E7gAn4iaFjUpvJNnh9wiUZz4J6i1o9W0awmiowbZZ3TA')
+        cy.setCookie('jwt-token', 'some-jwt-token')
         cy.visit('/shop')
         cy.get('button[data-test-id=addToCartBtn]').first().click().should(() => {
             expect(localStorage.getItem('items')).not.to.eq([])
@@ -44,4 +44,53 @@ describe('Shop component with adding to cart', () => {
         cy.url().should('include', '/card')
         cy.get('.basketItem').its('length').should('eq',1)
     })
+
+    it('should add number of element in cart', () => {
+        cy.get('button[data-test-id=addToCartBtn]').first().click()
+        cy.get('button[data-test-id=cartBtn]').click()
+        cy.url().should('include', '/card')
+        cy.get('button[data-test-id=plusBtn]').click().should(() => {
+            expect(localStorage.getItem('total')).to.eq("5.98")
+        });
+    })
+
+    it('should add and reduce number of element in cart', () => {
+        cy.get('button[data-test-id=addToCartBtn]').first().click()
+        cy.get('button[data-test-id=cartBtn]').click()
+        cy.url().should('include', '/card')
+        cy.get('button[data-test-id=plusBtn]').click().should(() => {
+            expect(localStorage.getItem('total')).to.eq("5.98")
+        });
+        cy.get('button[data-test-id=minusBtn]').click().should(() => {
+            expect(localStorage.getItem('total')).to.eq("2.99")
+        });
+
+    })
+
+    it('should delete items from cart', () => {
+        cy.get('button[data-test-id=addToCartBtn]').first().click()
+        cy.get('button[data-test-id=cartBtn]').click()
+        cy.url().should('include', '/card')
+        cy.get('button[data-test-id=plusBtn]').click().should(() => {
+            expect(localStorage.getItem('total')).to.eq("5.98")
+        });
+        cy.get('button[data-test-id=deleteFromBinBtn]').click().should(() => {
+            expect(localStorage.getItem('items')).not.to.eq([])
+            expect(localStorage.getItem('total')).not.to.eq(0)
+        });
+    })
+
+    it('cart remember shopping value after logout', () => {
+        cy.setCookie('jwt-token', 'jwt-token')
+        cy.visit('/shop')
+        cy.get('button[data-test-id=addToCartBtn]').first().click()
+        cy.get('[data-test-id=logout]').click()
+        cy.url().should('include', '/')
+        cy.get('button[data-test-id=cartBtn]').click()
+        expect(localStorage.getItem('items')).not.to.eq([])
+        expect(localStorage.getItem('total')).not.to.eq(0)
+
+    })
+
+
 })

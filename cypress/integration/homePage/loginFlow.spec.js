@@ -17,7 +17,7 @@ describe('Log in flow', () => {
     })
 
     it('should render navbar correctly', () => {
-        cy.setCookie('jwt-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9%2EeyJhdWQiOiJodHRwOi8vMC4wLjAuMDozXFxcXD04MDgwL2hlbGxvMiIsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjNcXFxcPTgwODAiLCJpZCI6IjExMTY3OTkzMTM5ODcxMjg5MjAyMiIsImV4cCI6MTY1Njg2NTc2M30%2E7gAn4iaFjUpvJNnh9wiUZz4J6i1o9W0awmiowbZZ3TA')
+        cy.setCookie('jwt-token', 'jwt-token')
         cy.visit('/')
         cy.get('[data-test-id=userProfile]').click()
         cy.url().should('include', '/user/info')
@@ -26,7 +26,7 @@ describe('Log in flow', () => {
     })
 
     it('should user logout correctly', () => {
-        cy.setCookie('jwt-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9%2EeyJhdWQiOiJodHRwOi8vMC4wLjAuMDozXFxcXD04MDgwL2hlbGxvMiIsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjNcXFxcPTgwODAiLCJpZCI6IjExMTY3OTkzMTM5ODcxMjg5MjAyMiIsImV4cCI6MTY1Njg2NTc2M30%2E7gAn4iaFjUpvJNnh9wiUZz4J6i1o9W0awmiowbZZ3TA')
+        cy.setCookie('jwt-token', 'jwt-token')
         cy.visit('/shop')
         cy.get('[data-test-id=logout]').click()
         cy.get('[data-test-id="login-btn"]')

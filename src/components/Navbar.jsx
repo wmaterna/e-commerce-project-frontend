@@ -35,7 +35,7 @@ const Navbar = () => {
         <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}} >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                        <Button onClick={() => handleChangeLocation("/")}>
+                        <Button data-test-id="homeBtn" onClick={() => handleChangeLocation("/")}>
                             <div style={{color: btnColor, borderColor: btnColor}} className="navbar-conteriner-home logo">
                             PLANTS
                             </div>

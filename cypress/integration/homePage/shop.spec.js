@@ -41,4 +41,35 @@ describe('Shop component with adding to cart', () => {
         cy.get('.productDescription').should('have.text','Calatheas are magnificent tropical plants with beautifully shaped leaves. This Calathea Warscewiczii baby is perhaps one of the most remarkable varieties. Its exotic velvety leaves with two colours of green and burgundy undersides really make it stand out from your other plants. Besides being super decorative, she is also very air purifying! We don\'t know why you shouldn\'t take this beautiful baby into your home...')
         cy.get('.productPrice').should('have.text','Price: 2.99 $')
     })
+
+    it('should change subcategory and render good number of elements' , () => {
+        cy.get('button[data-test-id=subcategoryBtn').eq(1).click()
+        cy.get('.productCard').its('length').should('eq',2)
+    });
+
+    it('should change subcategory and render good number of elements' , () => {
+        cy.get('button[data-test-id=subcategoryBtn').eq(2).click()
+        cy.get('.productCard').its('length').should('eq',2)
+    });
+
+    it('should change subcategory and render good number of elements' , () => {
+        cy.get('button[data-test-id=subcategoryBtn').eq(3).click()
+        cy.get('.productCard').its('length').should('eq',2)
+    });
+
+    it('should change subcategory and render good number of elements' , () => {
+        cy.get('button[data-test-id=subcategoryBtn').eq(4).click()
+        cy.get('.productCard').its('length').should('eq',2)
+    });
+
+    it('should change subcategory and render good number of elements' , () => {
+        cy.get('button[data-test-id=subcategoryBtn').eq(5).click()
+        cy.get('.productCard').its('length').should('eq',1)
+    });
+
+    it('should change subcategory and render good number of subcategories' , () => {
+        cy.get('button[data-test-id=subcategoryBtn').its('length').should('eq',8)
+    });
+
+
 })

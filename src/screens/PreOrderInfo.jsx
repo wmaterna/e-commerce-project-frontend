@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {CartStateContext} from "../components/contextComponents/Cart";
 import Button from "@mui/material/Button";
 import {getUserInfo} from "./requests/getUserInfo";
-import {Breadcrumbs, CircularProgress, Divider, Grid, Typography} from "@mui/material";
+import {Alert, Breadcrumbs, CircularProgress, Divider, Grid, Typography} from "@mui/material";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import {userStateContext} from "../components/contextComponents/userContext";
 
@@ -13,7 +13,7 @@ export default function PreOrderInfo(){
     const {token} = useContext(userStateContext);
     const [loading, setLoading] = useState(false)
     const [userInfo, setUserInfo] = useState("");
-    const [, setError] = useState("");
+    const [error, setError] = useState("");
     const [validData, setValidData] = useState(false);
     const {total} = useContext(CartStateContext);
 
@@ -96,7 +96,11 @@ export default function PreOrderInfo(){
         <div>{
             !loading ?
             <>
-                <div>
+                    {error !== "" ?
+                        <Alert severity="warning">{error}</Alert>
+
+                :
+                        <div>
                     <Breadcrumbs style={{padding: "0 80px"}}
                         separator={<NavigateNextIcon fontSize="small" />}
                         aria-label="breadcrumb"
@@ -108,7 +112,7 @@ export default function PreOrderInfo(){
                             {getUserFrom()}
                         </>
                     }
-                </div>
+                </div>}
             </> :
                 <CircularProgress />
         }
