@@ -1,6 +1,6 @@
 export const getProductDetail = (id, setLoading, setProductInfo,setOpinions, setError) => {
     setLoading(true);
-    fetch(`/products/${id}`, {
+    fetch(`https://backendplant.azurewebsites.net/products/${id}`, {
 
     }).then((res) => {
         const data = res.json();

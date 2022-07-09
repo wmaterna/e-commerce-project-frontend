@@ -1,6 +1,6 @@
 export const postOrder = (token, order , setLoading, setOrderId, setError) => {
     setLoading(true)
-    fetch(`/order`, {
+    fetch(`https://backendplant.azurewebsites.net/order`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

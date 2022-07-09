@@ -3,7 +3,7 @@ import {getUserInfo} from "./getUserInfo";
 
 
 export const addReview = (token, opinion, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
-    fetch(`/opinion`, {
+    fetch(`https://backendplant.azurewebsites.net/opinion`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

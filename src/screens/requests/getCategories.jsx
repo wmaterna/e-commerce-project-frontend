@@ -2,7 +2,7 @@ import {getProducts} from "./getProducts";
 
 export const getCategories = (setLoading, setCategories, setProductList, setError) => {
     setLoading(true);
-    fetch(`/categories`, {
+    fetch(`https://backendplant.azurewebsites.net/categories`, {
 
     }).then((res) => {
         const data = res.json();

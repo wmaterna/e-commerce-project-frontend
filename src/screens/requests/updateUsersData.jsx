@@ -2,7 +2,7 @@ import {getUserInfo} from "./getUserInfo";
 
 export const updateUsersData = (updatedData, token, setLoading, setUserInfo, setError) => {
 
-    fetch(`/user`, {
+    fetch(`https://backendplant.azurewebsites.net/user`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

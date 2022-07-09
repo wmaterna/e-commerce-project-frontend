@@ -1,6 +1,6 @@
 export const getSubcategoryItems = (id, setLoading, setItems, setError) => {
     setLoading(true);
-    fetch(`/subcategory/${id}`, {
+    fetch(`https://backendplant.azurewebsites.net/subcategory/${id}`, {
 
     }).then((res) => {
         const data = res.json();

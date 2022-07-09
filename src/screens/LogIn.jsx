@@ -6,7 +6,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 function LogIn() {
 
     const handleLogin = (path) => {
-        window.location.assign(`http://localhost:8080` + path)
+        window.location.assign(`https://backendplant.azurewebsites.net` + path)
     }
 
     return (

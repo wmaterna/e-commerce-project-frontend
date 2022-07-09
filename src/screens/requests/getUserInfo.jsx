@@ -1,6 +1,6 @@
 export const getUserInfo = (setLoading, setUserInfo, token, setError) => {
     setLoading(true);
-    fetch(`/user`, {
+    fetch(`https://backendplant.azurewebsites.net/user`, {
         headers: {
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`

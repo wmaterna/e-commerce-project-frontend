@@ -2,7 +2,7 @@ import {getProductDetail} from "./getProductDetail";
 import {getUserInfo} from "./getUserInfo";
 
 export const deleteReview = (token, opinion, setLoading, setProductInfo, setOpinions, setError, setUserInfo) => {
-    fetch(`/opinion/${opinion.opinionId}`, {
+    fetch(`https://backendplant.azurewebsites.net/opinion/${opinion.opinionId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",

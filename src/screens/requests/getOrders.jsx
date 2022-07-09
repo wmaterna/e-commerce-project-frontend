@@ -1,6 +1,6 @@
 export const getOrders = (token, setOrderDetails, setLoading, setError) => {
     setLoading(true)
-    fetch(`/order`, {
+    fetch(`https://backendplant.azurewebsites.net/order`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

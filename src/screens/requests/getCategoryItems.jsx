@@ -1,6 +1,6 @@
 export const getCategoryItems = (id, setLoading, setItems, setError) => {
     setLoading(true);
-    fetch(`/categories/${id}`, {
+    fetch(`https://backendplant.azurewebsites.net/categories/${id}`, {
 
     }).then((res) => {
         const data = res.json();

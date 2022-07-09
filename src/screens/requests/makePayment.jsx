@@ -1,5 +1,5 @@
 export const payment = (total, token, setClientSecret) => {
-    fetch("/createPayment", {
+    fetch("https://backendplant.azurewebsites.net/createPayment", {
         method: "POST",
         headers: { "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
