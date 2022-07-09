@@ -68,7 +68,7 @@ describe('Shop component with adding to cart', () => {
     });
 
     it('should change subcategory and render good number of subcategories' , () => {
-        cy.get('button[data-test-id=subcategoryBtn').its('length').should('eq',8)
+        cy.get('button[data-test-id=subcategoryBtn]').its('length').should('eq',8)
     });
 
 

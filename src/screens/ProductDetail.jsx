@@ -140,7 +140,7 @@ console.log(props.id)
                     <Grid item xs={2}>
                         {(!showForm && token != undefined) &&
                             <Button disabled={token == undefined}
-                                    data-test-id="addYourOpinion"
+                                    data-test-id="showAddForm"
                                     onClick={() => setShowForm(true)}
                                     size="small"
                                     style={{

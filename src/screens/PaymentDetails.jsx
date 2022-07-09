@@ -52,7 +52,7 @@ export default function PaymentDetails(){
                 <Typography variant="h6" component="h6" style={{padding: "10px 0"}}>
                     Thank you for your order. Order id: {orderId}
                 </Typography>
-                <Button style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" onClick={() => navigate("/orders")}>Show all orders</Button>
+                <Button data-test-id="seeOrders" style={{margin: "20px", padding: "10px 20px", backgroundColor: "#557C55"}} variant="contained" onClick={() => navigate("/orders")}>Show all orders</Button>
             </div>
                 :
            <CircularProgress />

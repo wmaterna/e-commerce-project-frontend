@@ -49,6 +49,11 @@ const Orders = () => {
                             columns={columns}
                             pageSize={10}
                             rowsPerPageOptions={[5]}
+                            initialState={{
+                                sorting: {
+                                    sortModel: [{ field: 'id', sort: 'desc' }],
+                                },
+                            }}
                         />
                     </Box>
                 )
