@@ -34,6 +34,12 @@ export default function UserScreen() {
     },[])
 
     useEffect(() => {
+        if(token){
+            getUserInfo(setLoading, setUserInfo, token, setError)
+        }
+    },[token])
+
+    useEffect(() => {
         if(street == "" || postCode == "" || city=="" || apartment==""){
             setSaveBtnDisabled(true)
         }else{

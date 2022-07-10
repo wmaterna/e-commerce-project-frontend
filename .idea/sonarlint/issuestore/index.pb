@@ -24,8 +24,6 @@ L
 src/screens/PreOrderInfo.jsx,7/b/7b6b9b8f9b136a5538c6c6711f829fb7122a2f4b
 H
 src/screens/CartPage.jsx,5/a/5a558b9300a37338234841fac5e7d6d61315beb9
-I
-src/components/Navbar.jsx,d/1/d1eb1e252fd507134cfc95e08757d087da9b650a
 L
 src/screens/PaymentsPage.jsx,f/1/f1fd80fea37af70d8ded08ee4cca023e0e9a4d55
 U
