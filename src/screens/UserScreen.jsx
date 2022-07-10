@@ -3,7 +3,7 @@ import {getUserInfo} from "./requests/getUserInfo";
 import {CircularProgress, Button, Divider, List, ListItem, TextField, Typography} from "@mui/material";
 import {updateUsersData} from "./requests/updateUsersData";
 import {userStateContext} from "../components/contextComponents/userContext";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import Cookies from "js-cookie";
 
 
@@ -19,21 +19,16 @@ export default function UserScreen() {
     const [city, setCity] = useState("");
     const [apartment, setApartment] = useState("");
     const [saveDisabled, setSaveBtnDisabled] = useState(false)
-
-    useEffect(() => {
-        const query = new URLSearchParams(this.props.location.search);
-        if(query.get('token')){
-            Cookies.set('jwt-token', token)
-            window.location.reload(false);
-        }
-    },[])
-
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         if(token == undefined){
-            navigate("/login");
+            const token = searchParams.get("token")
+            if(token){
+                Cookies.set('jwt-token', token)
+                navigate("/user/info")
+            }
         }
-        getUserInfo(setLoading, setUserInfo, token, setError)
     },[])
 
     useEffect(() => {

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useContext} from 'react';
 import "./LogIn.css";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
+import Cookies from "js-cookie";
 
 function LogIn() {
 
