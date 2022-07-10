@@ -9,10 +9,10 @@ https://automate.browserstack.com/dashboard/v2/builds/82b6087fadef6f6663665d4d1a
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=wmaterna_e-commerce-project-frontend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=wmaterna_e-commerce-project-frontend)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=wmaterna_e-commerce-project-frontend&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=wmaterna_e-commerce-project-frontend)
 
-#Backend repo
+# Backend repo
 
 https://github.com/wmaterna/e-commerce-project-backend
 
-#Deployment (Azure)
+# Deployment (Azure)
 
 https://newappfront.azurewebsites.net/
