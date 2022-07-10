@@ -4,6 +4,7 @@ import {CircularProgress, Button, Divider, List, ListItem, TextField, Typography
 import {updateUsersData} from "./requests/updateUsersData";
 import {userStateContext} from "../components/contextComponents/userContext";
 import {useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 
 
 export default function UserScreen() {
@@ -19,6 +20,13 @@ export default function UserScreen() {
     const [apartment, setApartment] = useState("");
     const [saveDisabled, setSaveBtnDisabled] = useState(false)
 
+    useEffect(() => {
+        const query = new URLSearchParams(this.props.location.search);
+        if(query.get('token')){
+            Cookies.set('jwt-token', token)
+            window.location.reload(false);
+        }
+    },[])
 
 
     useEffect(() => {
