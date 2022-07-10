@@ -57,7 +57,7 @@ export default function PaymentsForm() {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/payments-details",
+                return_url: "https://newappfront.azurewebsites.net/payments-details",
             },
         });
 

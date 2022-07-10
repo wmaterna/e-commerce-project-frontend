@@ -28,7 +28,7 @@ export default function UserScreen() {
             console.log(tokenUrl)
             if(tokenUrl){
                 logIn(tokenUrl)
-                navigate("/user/info")
+                navigate("/shop")
             }
         }
     },[])
