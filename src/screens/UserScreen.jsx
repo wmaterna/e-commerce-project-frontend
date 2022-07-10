@@ -37,7 +37,7 @@ export default function UserScreen() {
         if(token){
             getUserInfo(setLoading, setUserInfo, token, setError)
         }
-    },[token])
+    },[])
 
     useEffect(() => {
         if(street == "" || postCode == "" || city=="" || apartment==""){
