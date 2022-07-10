@@ -13,16 +13,16 @@ export const userStateContext = createContext(defaultValue);
 
 
 export const UserContextProvider = ({ children }) => {
-   const [token, setToken] = useState(Cookies.get("jwt-token"))
+   const [token, setToken] = useState(Cookies.get("jwt-token2"))
 
     const logOut = () => {
-        Cookies.remove("jwt-token");
+        Cookies.remove("jwt-token2");
         setToken(undefined)
     }
 
     const logIn = (token) => {
         setToken(token)
-        Cookies.set("jwt-token", token, {expires: moment().add(3600000, "milliseconds").date()});
+        Cookies.set("jwt-token2", token, {expires: moment().add(3600000, "milliseconds").date()});
     }
 
     return(
