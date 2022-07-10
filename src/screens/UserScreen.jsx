@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 
 export default function UserScreen() {
     const navigate = useNavigate();
-    const {token} = useContext(userStateContext);
+    const {token, logIn} = useContext(userStateContext);
     const [loading, setLoading] = useState(false)
     const [, setError] = useState("");
     const [userInfo, setUserInfo] = useState(undefined);
@@ -22,10 +22,12 @@ export default function UserScreen() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        if(token == undefined){
-            const token = searchParams.get("token")
-            if(token){
-                Cookies.set('jwt-token', token)
+        console.log(token)
+        if(token === undefined){
+            const tokenUrl = searchParams.get("token")
+            console.log(tokenUrl)
+            if(tokenUrl){
+                logIn(tokenUrl)
                 navigate("/user/info")
             }
         }

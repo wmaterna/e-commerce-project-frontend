@@ -1,9 +1,11 @@
 import React, { useState, createContext } from "react";
 import Cookies from "js-cookie";
+import moment from "moment";
 
 const defaultValue = {
     token: undefined,
     logOut: () => undefined,
+    logIn: () => undefined
 }
 
 
@@ -18,10 +20,13 @@ export const UserContextProvider = ({ children }) => {
         setToken(undefined)
     }
 
-
+    const logIn = (token) => {
+        setToken(token)
+        Cookies.set("jwt-token", token, {expires: moment().add(3600000, "milliseconds").date()});
+    }
 
     return(
-        <userStateContext.Provider value={{token, logOut}}>
+        <userStateContext.Provider value={{token, logOut,logIn}}>
             {children}
         </userStateContext.Provider>
     )
